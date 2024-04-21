@@ -1,6 +1,6 @@
 **Part one**
 [] PDO connections
-[] Database (product info)
+[x] Database (product info)
 [] Sign up and login (user, admin)
 [] UI/UX (frontend)
 [] Admin panel
