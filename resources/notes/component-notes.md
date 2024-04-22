@@ -1,15 +1,17 @@
-    Book (10)
-    - id (varchar 20 | PK)
-    - Name (varchar 125)
-    - Description (LONGTEXT)
-    - Price (decimal 20)
-    - Author_id (int 11 | FK)
-    - Genre_id (int 11 | FK)
-    - publisher_id (int 11 | FK)
-    - Cover (varchar 255)
-    - Qty (int 11)
-    - Pages (int 11)
-    - ISBN (int 20) (uk)
+# Database
+
+Book (10)
+- id (varchar 20 | PK)
+- Name (varchar 125)
+- Description (LONGTEXT)
+- Price (decimal 20)
+- Author_id (int 11 | FK)
+- Genre_id (int 11 | FK)
+- publisher_id (int 11 | FK)
+- Cover (varchar 255)
+- Qty (int 11)
+- Pages (int 11)
+- ISBN (int 20) (uk)
 Author (x)
 - ID (int 11)
 - Name (varchar 100)
@@ -75,3 +77,9 @@ Payment
 - card_num
 - card_cvc
 - expr_date
+
+# Navbar
+
+Guest navbar
+User navbar
+Admin
