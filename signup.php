@@ -1,4 +1,3 @@
-{
 <?php
 
 include 'src/user_validation.php';

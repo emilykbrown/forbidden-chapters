@@ -30,7 +30,7 @@ if(isset($_POST['login'])) {
         print_r($_SESSION['userlogin']); 
        if($urole == 'Admin' ) {
         echo "<script>document.location='admin.php'</script";
-      } if ($urole == 'User') {
+        } if ($urole == 'User') {
         echo "<script>document.location='user.php'</script>";
       } 
     } else {

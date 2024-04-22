@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = sanitize_input($_POST["phone"]);
   }
 
-  $uspass = sanitize_input($_POST['upass']);
+  $upass = sanitize_input($_POST['upass']);
   if (empty($upass)) {
     $upassError = "Enter a password";
   } elseif (!preg_match($upassRegex, $password)) {
