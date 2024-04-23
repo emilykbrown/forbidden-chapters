@@ -1,6 +1,47 @@
 <?php
 
+
+session_start();
+
+if(isset($_POST['login'])) {
+    include 'config/db.php';
+   
+    // Set variables
+    $id = create_unique_id();
+    $username = $_POST['username'];
+    $upass = $_POST['upass'];
+    
+    // Fetch data from the database
+    $query = "SELECT fname, lname, username, email, phone, upass, urole FROM users WHERE (username=:username OR email=:username)";
+    $stmt = $con->prepare($query);
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+    // Matching username and password
+    if ($stmt->rowCount() == 1) {
+        foreach ($results as $row) {
+            $hashpass = $row->upass;
+            $urole = $row->urole;
+        }
+        if(password_verify($upass, $hashpass) && ($urole == 'User' || $urole == 'Admin')) {
+            $_SESSION['userlogin'] = $_POST['username'];
+            $_SESSION['urole'] = $urole;
+            if($urole == 'Admin' ) {
+              echo "<script>document.location='admin.php'</script>";
+            } if ($urole == 'User') {
+              echo "<script>document.location='user.php'</script>";
+            } 
+        } else {
+            echo "Invalid username or password";
+        }
+    } else {
+        echo "Invalid username or password";
+    }
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +55,7 @@
     <div class="card">
       <div class="card-header">Welcome back</div>
       <div class="card-body">
-        <form action="#" method="POST">
+        <form action="" method="POST">
           <div class="mb-3 mt-3">
             <label for="text" class="form-label">Username or email</label>
             <input type="text" class="form-control" id="username" placeholder="Username or email" name="username">

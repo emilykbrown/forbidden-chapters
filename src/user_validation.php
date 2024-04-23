@@ -116,7 +116,6 @@ if (isset($_POST['signup'])) {
     
     $stmt = $con->prepare($query);
     $urole = "User";
-    echo $id;
     $stmt->bindParam(':id', $id, PDO::PARAM_STR);
     $stmt->bindParam(':fname', $fname, PDO::PARAM_STR);
     $stmt->bindParam(':lname', $lname, PDO::PARAM_STR);
