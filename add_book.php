@@ -8,7 +8,9 @@ if (isset($_COOKIE['user_id'])) {
 }
 
 if (isset($_POST['add-book'])) {
-    echo "Add book";
+    $id = create_unique_id();
+    $title = $_POST['book-title'];
+    $author = $_POST['author'];
 }
 
 ?>
@@ -29,28 +31,20 @@ if (isset($_POST['add-book'])) {
 				<form action="" method="post" enctype="multipart/form-data">
                     <div class="mb-3 mt-3">
 						<label for="book-title">Book Title</label>
-						<input type="text" class="form-control" name="book-title" id="book-title" required maxlength="50" placeholder="Book title">
+						<input type="text" class="form-control" name="book-title" id="book-title" placeholder="Book title">
+				    </div>
+                    <div class="mb-3 mt-3">
+						<label for="author">Author</label>
+						<input type="text" class="form-control" name="author" id="author" placeholder="Author">
+				    </div>
+                    <div class="mb-3 mt-3">
+						<label for="genre">Genre</label>
+						<input type="text" class="form-control" name="genre" id="genre" placeholder="Genre">
 				    </div>
                     <div class="mb-3 mt-3">
 						<label for="blurb">Blurb</label>
                         <textarea class="form-control" id="blurb" name="blurb" rows="3" placeholder="Blurb"></textarea>
 				    </div>
-                    <div class="mb-3 mt-3">
-						<label for="isbn">ISBN</label>
-						<input type="text" class="form-control" name="isbn" id="isbn" required maxlength="50" placeholder="ISBN">
-				    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="author">Author</label>
-                        <div id="authorSelect"></div>
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="publisher">Publisher</label>
-                        <div id="publisherSelect"></div>
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="genre">Genre</label>
-                        <div id="genreSelect"></div>
-                    </div>
                     <div class="row">
                         <div class="mb-3 mt-3 col">
                             <label for="price">Price</label>
@@ -59,16 +53,6 @@ if (isset($_POST['add-book'])) {
                         <div class="mb-3 mt-3 col">
                             <label for="qty">Quanity</label>
                             <input type="number" class="form-control" id="qty" name="qty" min="1" max="10000">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 mt-3 col">
-                            <label for="pg">Number of pages</label>
-                            <input type="number" class="form-control" id="pg" name="pg" min="1" max="10000">
-                        </div>
-                        <div class="mb-3 mt-3 col">
-                            <label for="pubDate">Published Date</label>
-                            <input type="date" name="pubDate" id="pubDate" class="form-control">
                         </div>
                     </div>
                     
