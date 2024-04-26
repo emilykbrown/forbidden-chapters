@@ -1,7 +1,7 @@
 <?php
 
 $host = "localhost";
-$dbName = "forgottenchapters";
+$dbName = "forbidden-chapters";
 $userName = "root";
 $password = "";
 

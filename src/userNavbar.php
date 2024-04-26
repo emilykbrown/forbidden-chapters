@@ -9,7 +9,6 @@
             
         </div>
         <div class="d-flex ms-auto">
-          <a href="signup.php" class="btn btn-primary btn-sm">New Account</a>&nbsp;&nbsp;
-          <a href="login.php" class="btn btn-primary btn-sm">Login</a>
+          <a href="logout.php" class="btn btn-primary btn-sm">Logout</a>
     </div>
 </nav>

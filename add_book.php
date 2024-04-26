@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include_once 'config/db.php';
 if (isset($_COOKIE['user_id'])) {
 	$user_id = $_COOKIE['user_id'];
@@ -7,11 +7,16 @@ if (isset($_COOKIE['user_id'])) {
 	setcookie('user_id', create_unique_id(), time() + 60 * 60 * 24 * 30);
 }
 
-if (isset($_POST['add-book'])) {
-    $id = create_unique_id();
-    $title = $_POST['book-title'];
-    $author = $_POST['author'];
+if(empty($_SESSION['userlogin'])) {
+    echo "<script>document.location='logout.php'</script>";
 }
+
+if(!empty($_SESSION['userlogin'])) {
+
+    $urole = $_SESSION['urole'];
+    if ($urole == "Admin")
+    {
+        include 'src/fetchNewBook.php';
 
 ?>
 
@@ -24,6 +29,11 @@ if (isset($_POST['add-book'])) {
 </head>
 <body>
     
+        <?php
+
+        include 'src/adminNavbar.php';
+        
+        ?>
 
 	<div class="container mt-5 mb-5 d-flex justify-content-center">
 		<div class="card w-50">
@@ -32,6 +42,10 @@ if (isset($_POST['add-book'])) {
                     <div class="mb-3 mt-3">
 						<label for="book-title">Book Title</label>
 						<input type="text" class="form-control" name="book-title" id="book-title" placeholder="Book title">
+				    </div>
+                    <div class="mb-3 mt-3">
+						<label for="isbn">ISBN</label>
+						<input type="number" class="form-control" name="isbn" id="isbn" placeholder="ISBN">
 				    </div>
                     <div class="mb-3 mt-3">
 						<label for="author">Author</label>
@@ -72,3 +86,10 @@ if (isset($_POST['add-book'])) {
     </div>
 </body>
 </html>
+
+<?php
+    } else {
+        //echo "<script>document.location='logout.php'</script>";
+        echo "foo";
+}}
+// ?>

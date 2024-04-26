@@ -81,5 +81,12 @@ Payment
 # Navbar
 
 Guest navbar
+- Home
+- New account
+- Login
 User navbar
 Admin
+- Product management
+- Search `
+
+Images from barnesandnoble.com

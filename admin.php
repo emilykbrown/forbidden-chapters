@@ -10,7 +10,6 @@ if(!empty($_SESSION['userlogin'])) {
 
     $urole = $_SESSION['urole'];
     if ($urole == "Admin") {
-        echo $urole;
 ?>
 
 <!DOCTYPE html>
