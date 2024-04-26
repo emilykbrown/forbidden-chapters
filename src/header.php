@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="config/css/bootstrap.min.css">
     <link rel="stylesheet" href="config/css/datatables.css">
     <link rel="stylesheet" href="config/css/datatables.min.css">
+    <script src="https://kit.fontawesome.com/8f22622c15.js" crossorigin="anonymous"></script>
     <script src="config/js/bootstrap.bundle.min.js"></script>
     <script src="config/js/jquery-3.7.0.min.js"></script>
     <script src="config/js/datatables.js"></script>
