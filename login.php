@@ -28,9 +28,9 @@ if(isset($_POST['login'])) {
             $_SESSION['userlogin'] = $_POST['username'];
             $_SESSION['urole'] = $urole;
             if($urole == 'Admin' ) {
-              echo "<script>document.location='admin.php'</script>";
+              echo "<script>document.location='inventory.php'</script>";
             } if ($urole == 'User') {
-              echo "<script>document.location='user.php'</script>";
+              echo "<script>document.location='index.php'</script>";
             } 
         } else {
             echo "Invalid username or password";

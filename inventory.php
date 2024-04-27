@@ -70,12 +70,15 @@ if (!empty($_SESSION['userlogin'])) {
                     <tbody>
                         <tr>
                             <td>The Hunger Games</td>
-                            <td><img src="test-img/hungergames.jpg" width="48" height="73.25"></td>
+                            <td><img src="https://fakeimg.pl/48x73.25"></td>
                             <td>9780439023528</td>
                             <td>Suzanne</td>
                             <td>Collins</td>
                             <td>Young Adult</td>
-                            <td>Edit Delete</td>
+                            <td>
+                                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
