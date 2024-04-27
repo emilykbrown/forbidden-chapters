@@ -34,7 +34,7 @@ if(!empty($_SESSION['userlogin'])) {
 ?>
 
 <div class="container mt-5">
-    <a href="add_book.php" class="btn btn-danger mb-3">Add book</a>
+    <a href="add_book.php" class="btn btn-danger mb-3">Add Author</a>
 <div class="card">
 
 
