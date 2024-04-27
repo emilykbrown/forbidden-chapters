@@ -1,6 +1,11 @@
 <?php
 session_start();
 include 'config/db.php';
+if (isset($_COOKIE['user_id'])) {
+	$user_id = $_COOKIE['user_id'];
+} else {
+	setcookie('user_id', create_unique_id(), time() + 60 * 60 * 24 * 30);
+}
 
 if(empty($_SESSION['userlogin'])) {
     echo "<script>document.location='logout.php'</script>";

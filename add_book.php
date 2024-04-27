@@ -89,7 +89,9 @@ if(!empty($_SESSION['userlogin'])) {
 
 <?php
     } else {
-        //echo "<script>document.location='logout.php'</script>";
-        echo "foo";
-}}
-// ?>
+        echo "<script>document.location='logout.php'</script>";
+    }
+} else {
+    echo "<script>document.location='logout.php'</script>";
+}
+?>

@@ -7,6 +7,7 @@ if (isset($_COOKIE['user_id'])) {
 	setcookie('user_id', create_unique_id(), time() + 60 * 60 * 24 * 30);
 }
 
+
 if(empty($_SESSION['userlogin'])) {
     echo "<script>document.location='logout.php'</script>";
 }
@@ -37,43 +38,24 @@ if(!empty($_SESSION['userlogin'])) {
 <div class="card">
 
 
-    <table id="inventory-table" class="table table-striped table-bordered">
+    <table id="author-table" class="table table-striped table-bordered">
         <thead>
            <tr>
-                <th>Title</th>
-                <th>Cover</th>
-                <th>ISBN</th>
-                <th>Author First Name</th>
-                <th>Author Last Name</th>
-                <th>Genre</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Number of Books</th>
                 <th>Action</th>
             </tr> 
         </thead>
         <tbody>
             <tr>
-                <td>The Hunger Games</td>
-                <td><img src="test-img/hungergames.jpg" width="48" height="73.25"></td>
-                <td>9780439023528</td>
                 <td>Suzanne</td>
                 <td>Collins</td>
-                <td>Young Adult</td>
+                <td>6</td>
                 <td>Edit Delete</td>
             </tr>
         </tbody>
 </table>
-</div>
-</div>
-<script>
-
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
-
-
-   
-</script>
-</body>
-</html>
 </div>
 </div>
 <script>
