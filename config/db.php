@@ -8,7 +8,9 @@ $password = "";
 try
 {
 	$con = new PDO("mysql:host={$host};dbname={$dbName}",$userName,$password);
-    function create_unique_id() {
+    // echo uniqid();
+
+	function create_unique_id() {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $characterlength = strlen($characters);
         $randomString = '';
@@ -19,6 +21,7 @@ try
         return $randomString;
 
     }
+    
 }
 
 catch(PDOException $e)

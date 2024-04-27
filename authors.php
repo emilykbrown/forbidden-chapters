@@ -34,7 +34,24 @@ if(!empty($_SESSION['userlogin'])) {
 ?>
 
 <div class="container mt-5">
-    <a href="add_book.php" class="btn btn-danger mb-3">Add Author</a>
+
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#author_modal">Add
+                Author</button>
+
+            <!-- The Modal -->
+            <div class="modal" id="author_modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <?php
+
+                        include 'add_author.php';
+
+                        ?>
+
+                    </div>
+                </div>
+            </div>
 <div class="card">
 
 
@@ -61,7 +78,7 @@ if(!empty($_SESSION['userlogin'])) {
 <script>
 
 $(document).ready(function() {
-    $('#example').DataTable();
+    $('#author-table').DataTable();
 } );
 
 

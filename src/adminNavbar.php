@@ -7,8 +7,8 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav">
             <a href="inventory.php" class="nav-item nav-link">Inventory</a> 
-            <a href="genres.php" class="nav-item nav-link">Genres</a>
             <a href="authors.php" class="nav-item nav-link">Authors</a>  
+            <a href="genres.php" class="nav-item nav-link">Genres</a>
         </div>
         <div class="d-flex ms-auto">
           <a href="logout.php" class="btn btn-primary btn-sm">Logout</a>

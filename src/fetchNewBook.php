@@ -22,7 +22,6 @@ if (isset($_POST['add-book'])) {
         echo 'Image too big';
     } else {
         try {
-            // Assuming $con is your database connection
             $query = "INSERT INTO `books` SET id=:id, title=:title, author=:author, isbn=:isbn, genre=:genre, blurb=:blurb, price=:price, qty=:qty, cover=:cover";
             $stmt = $con->prepare($query);
             $stmt->bindParam(':id', $id);

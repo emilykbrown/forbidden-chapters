@@ -28,70 +28,68 @@ if (!empty($_SESSION['userlogin'])) {
             ?>
         </head>
 
-        <body>
-            <?php
-            include 'src/adminNavbar.php';
-            ?>
-            <div class="containter mt-5">
-            <div class="card">
+        <?php
+        include 'src/adminNavbar.php';
+        ?>
 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#book_modal">Add
-                    Book</button>
+        <div class="container mt-5">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#book_modal">Add
+                Book</button>
 
-                <!-- The Modal -->
-                <div class="modal" id="book_modal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
+            <!-- The Modal -->
+            <div class="modal" id="book_modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
 
-                            <?php
+                        <?php
 
-                            include 'add_book.php';
+                        include 'add_book.php';
 
-                            ?>
+                        ?>
 
-                        </div>
                     </div>
                 </div>
-
-                
-
-
-                    <table id="inventory-table" class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Cover</th>
-                                <th>ISBN</th>
-                                <th>Author First Name</th>
-                                <th>Author Last Name</th>
-                                <th>Genre</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>The Hunger Games</td>
-                                <td><img src="test-img/hungergames.jpg" width="48" height="73.25"></td>
-                                <td>9780439023528</td>
-                                <td>Suzanne</td>
-                                <td>Collins</td>
-                                <td>Young Adult</td>
-                                <td>Edit Delete</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
+
+
+            <div class="card">
+
+
+                <table id="inventory_table" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Cover</th>
+                            <th>ISBN</th>
+                            <th>Author First Name</th>
+                            <th>Author Last Name</th>
+                            <th>Genre</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>The Hunger Games</td>
+                            <td><img src="test-img/hungergames.jpg" width="48" height="73.25"></td>
+                            <td>9780439023528</td>
+                            <td>Suzanne</td>
+                            <td>Collins</td>
+                            <td>Young Adult</td>
+                            <td>Edit Delete</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <script>
+        </div>
+        <script>
 
-                $(document).ready(function () {
-                    $('#example').DataTable();
-                });
+            $(document).ready(function () {
+                $('#inventory_table').DataTable();
+            });
 
 
 
-            </script>
+        </script>
         </body>
 
         </html>
