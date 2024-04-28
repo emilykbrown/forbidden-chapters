@@ -33,7 +33,7 @@ if (!empty($_SESSION['userlogin'])) {
         ?>
 
         <div class="container mt-5">
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#book_modal">Add
+            <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#book_modal">Add
                 Book</button>
 
             <!-- The Modal -->

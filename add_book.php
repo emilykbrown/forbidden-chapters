@@ -19,11 +19,34 @@ include 'src/fetchNewBook.php';
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="author">Author</label>
-                        <input type="text" class="form-control" name="author" id="author" placeholder="Author">
+                        <select name="author_select" class="form-control select-control" id="author_select">
+                            <?php
+                            $authors = $con->prepare("SELECT * FROM authors");
+                            $authors->execute();
+                            while($author_list = $authors->fetch(PDO::FETCH_ASSOC)) {
+                                extract($author_list)
+                            ?>
+                            <option value="<?php echo $author_id?>"><?php echo $author_fname; echo "<div>&nbsp;</div>"; echo $author_lname?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="genre">Genre</label>
-                        <input type="text" class="form-control" name="genre" id="genre" placeholder="Genre">
+                        
+                        <select name="genre_select" class="form-control select-control" id="genre_select">
+                            <?php
+                            $genres = $con->prepare("SELECT * FROM genres");
+                            $genres->execute();
+                            while($genre_list = $genres->fetch(PDO::FETCH_ASSOC)) {
+                                extract($genre_list)
+                            ?>
+                            <option value="<?php echo $genre_id?>"><?php echo $genre?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="blurb">Blurb</label>
@@ -49,7 +72,7 @@ include 'src/fetchNewBook.php';
 
                     </div>
                     <div class="d-grid gap-4">
-                        <button type="submit" name="add-book" value="add-book" class="btn btn-successa">Add Book</button>
+                        <button type="submit" name="add-book" value="add-book" class="btn btn-success">Add Book</button>
                     </div>
                 </form>
             </div>
