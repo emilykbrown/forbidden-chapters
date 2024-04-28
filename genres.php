@@ -16,7 +16,7 @@ if (!empty($_SESSION['userlogin'])) {
 
     $urole = $_SESSION['urole'];
     if ($urole == "Admin") {
-        include 'src/fetchNewGenre.php';
+        include 'src/fetchNewBook.php';
 
         ?>
 
@@ -36,7 +36,7 @@ if (!empty($_SESSION['userlogin'])) {
 
             <div class="container mt-5">
 
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#genre_modal">Add
+                <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#genre_modal">Add
                     Genre</button>
 
                 <!-- The Modal -->
@@ -67,30 +67,35 @@ if (!empty($_SESSION['userlogin'])) {
                         </thead>
                         <tbody>
                             <?php
-                            $genres = $con->prepare("SELECT genre, genre_id FROM genres ");
+                            $genres = $con->prepare("SELECT genres.genre, genres.genre_id, COUNT(books.genre_id) AS genre_book_count
+                            FROM genres
+                            LEFT JOIN books ON genres.genre_id = books.genre_id
+                            GROUP BY genres.genre_id");
                             $genres->execute();
                             while ($genre = $genres->fetch(PDO::FETCH_ASSOC)) {
                                 extract($genre);
-                            
-                            ?>
-                            <tr>
-                                <td><?php echo $genre_id; ?></td>
-                                <td><?php echo $genre; ?></td>
-                                <td>
-                                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
-                                <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
-                            </td>
-                            </tr>
+                                ?>
+                                <tr>
+                                    <td><?php echo $genre_id; ?></td>
+                                    <td><?php echo $genre; ?></td>
+                                    <td><?php echo $genre_book_count; ?></td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-sm"><i
+                                                class="fa-solid fa-pen-to-square"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
+                                    </td>
+                                </tr>
                             <?php } ?>
                         </tbody>
+
                     </table>
                 </div>
             </div>
             <script>
 
-                $(document).ready(function () {
-                    $('#genre-table').DataTable();
-                });
+$(document).ready(function() {
+    $('#genre-table').DataTable();
+} );
 
 
 

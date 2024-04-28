@@ -35,7 +35,7 @@ if(!empty($_SESSION['userlogin'])) {
 
 <div class="container mt-5">
 
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#author_modal">Add
+            <button type="button" class="btn btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#author_modal">Add
                 Author</button>
 
             <!-- The Modal -->
@@ -55,7 +55,7 @@ if(!empty($_SESSION['userlogin'])) {
 <div class="card">
 
 
-    <table id="author-table" class="table table-striped table-bordered">
+    <table id="author_table" class="table table-striped table-bordered">
         <thead>
            <tr>
                 <th>Author ID</th>
@@ -68,8 +68,10 @@ if(!empty($_SESSION['userlogin'])) {
         <tbody>
             <tr>
                 <?php
-                $authors = $con->prepare("SELECT authors.author_fname, authors.
-                author_lname, authors.author_id FROM authors");
+                $authors = $con->prepare("SELECT authors.author_fname, authors.author_lname, authors.author_id, COUNT(books.author_id) AS author_book_count
+                FROM authors 
+                LEFT JOIN books ON authors.author_id = books.author_id
+                GROUP BY authors.author_id");
                 $authors->execute();
                 while ($author = $authors->fetch(PDO::FETCH_ASSOC)) {
                     extract($author);
@@ -77,7 +79,7 @@ if(!empty($_SESSION['userlogin'])) {
                 <td><?php echo $author_id; ?></td>
                 <td><?php echo $author_fname; ?></td>
                 <td><?php echo $author_lname; ?></td>
-                <td>/</td>
+                <td><?php echo $author_book_count; ?></td>
                 <td>
                     <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
                     <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
@@ -91,7 +93,7 @@ if(!empty($_SESSION['userlogin'])) {
 <script>
 
 $(document).ready(function() {
-    $('#author-table').DataTable();
+    $('#author_table').DataTable();
 } );
 
 
