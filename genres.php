@@ -65,9 +65,6 @@ if (!empty($_SESSION['userlogin'])) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><?php echo $genre['genre']; ?></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
