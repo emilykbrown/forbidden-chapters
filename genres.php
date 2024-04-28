@@ -59,12 +59,29 @@ if (!empty($_SESSION['userlogin'])) {
                     <table id="genre-table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
+                                <th>Genre ID</th>
                                 <th>Genre</th>
                                 <th>Number of Books</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                            $genres = $con->prepare("SELECT genre, genre_id FROM genres ");
+                            $genres->execute();
+                            while ($genre = $genres->fetch(PDO::FETCH_ASSOC)) {
+                                extract($genre);
+                            
+                            ?>
+                            <tr>
+                                <td><?php echo $genre_id; ?></td>
+                                <td><?php echo $genre; ?></td>
+                                <td>
+                                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
+                            </td>
+                            </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

@@ -58,6 +58,7 @@ if(!empty($_SESSION['userlogin'])) {
     <table id="author-table" class="table table-striped table-bordered">
         <thead>
            <tr>
+                <th>Author ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Number of Books</th>
@@ -66,11 +67,23 @@ if(!empty($_SESSION['userlogin'])) {
         </thead>
         <tbody>
             <tr>
-                <td>Suzanne</td>
-                <td>Collins</td>
-                <td>6</td>
-                <td>Edit Delete</td>
+                <?php
+                $authors = $con->prepare("SELECT authors.author_fname, authors.
+                author_lname, authors.author_id FROM authors");
+                $authors->execute();
+                while ($author = $authors->fetch(PDO::FETCH_ASSOC)) {
+                    extract($author);
+                ?>
+                <td><?php echo $author_id; ?></td>
+                <td><?php echo $author_fname; ?></td>
+                <td><?php echo $author_lname; ?></td>
+                <td>/</td>
+                <td>
+                    <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
+                </td>
             </tr>
+            <?php } ?>
         </tbody>
 </table>
 </div>

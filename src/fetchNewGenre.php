@@ -5,16 +5,10 @@ if(isset($_POST['add-genre'])) {
     $genre_id = create_unique_id();
     $genre = $_POST['genre'];
 
-    try{
-        $query = "INSERT INTO `genres` SET genre_id=:genre_id, genre=:genre";
-        $stmt = $con->prepare($query);
-        $stmt->bindParam(':genre_id', $genre_id);
-        $stmt->bindParam(':genre', $genre);
-        $stmt->execute();
-        
-        } catch (Exception $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    }
-
+    $query = "INSERT INTO `genres` SET genre_id=:genre_id, genre=:genre";
+    $stmt = $con->prepare($query);
+    $stmt->bindParam(':genre_id', $genre_id);
+    $stmt->bindParam(':genre', $genre);
+    $stmt->execute();
+}
 ?>
