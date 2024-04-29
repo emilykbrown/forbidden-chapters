@@ -58,28 +58,45 @@ if (!empty($_SESSION['userlogin'])) {
                 <table id="inventory_table" class="table table-striped table-bordered">
                     <thead>
                         <tr>
+                            <th>Book Id</th>
                             <th>Title</th>
                             <th>Cover</th>
                             <th>ISBN</th>
                             <th>Author First Name</th>
                             <th>Author Last Name</th>
+                            <th>Price</th>
+                            <th>Qty</th>
                             <th>Genre</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>The Hunger Games</td>
-                            <td><img src="https://fakeimg.pl/48x73.25"></td>
-                            <td>9780439023528</td>
-                            <td>Suzanne</td>
-                            <td>Collins</td>
-                            <td>Young Adult</td>
+                            <?php
+                            $books_tbl = $con->prepare("SELECT books.id, books.title, books.isbn, authors.author_fname, authors.author_lname, genres.genre, books.price, books.qty, books.cover
+                            FROM books
+                            LEFT JOIN authors ON books.author_id = authors.author_id
+                            LEFT JOIN genres ON books.genre_id = genres.genre_id
+                            GROUP BY books.author_id");
+                            $books->execute();
+                            while ($book = $books_tbl->fetch(PDO::FETCH_ASSOC)) {
+                                extract($books_tbl);
+                            ?>
+                            <td><?php echo $id; ?></td>
+                            <td><?php echo $title; ?></td>
+                            <td><?php echo $cover; ?></td>
+                            <td><?php echo $isbn; ?></td>
+                            <td><?php echo $author_fname; ?></td>
+                            <td><?php echo $author_lname; ?></td>
+                            <td><?php echo $price; ?></td>
+                            <td><?php echo $qty ?></td>
+                            <td><?php echo $genre_id; ?></td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
                                 <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
                             </td>
                         </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

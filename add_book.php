@@ -13,54 +13,81 @@ include 'src/fetchNewBook.php';
                         <input type="text" class="form-control" name="book-title" id="book-title"
                             placeholder="Book title">
                     </div>
+                    <span class="error">
+                        <?php echo $titleError; ?>
+                    </span>
                     <div class="mb-3 mt-3">
                         <label for="isbn">ISBN</label>
                         <input type="number" class="form-control" name="isbn" id="isbn" placeholder="ISBN">
                     </div>
+                    <span class="error">
+                        <?php echo $isbnError; ?>
+                    </span>
                     <div class="mb-3 mt-3">
                         <label for="author">Author</label>
                         <select name="author_select" class="form-control select-control" id="author_select">
+                            <option value="">--Select an author--</option>
                             <?php
-                            $authors = $con->prepare("SELECT * FROM authors");
+                            $authors = $con->prepare("SELECT * FROM authors ORDER BY author_lname");
                             $authors->execute();
-                            while($author_list = $authors->fetch(PDO::FETCH_ASSOC)) {
+                            while ($author_list = $authors->fetch(PDO::FETCH_ASSOC)) {
                                 extract($author_list)
-                            ?>
-                            <option value="<?php echo $author_id?>"><?php echo $author_fname; echo "<div>&nbsp;</div>"; echo $author_lname?></option>
-                            <?php
+                                    ?>
+                                <option value="<?php echo $author_id ?>">
+                                    <?php echo $author_fname;
+                                    echo "<div>&nbsp;</div>";
+                                    echo $author_lname ?></option>
+                                <?php
                             }
                             ?>
                         </select>
                     </div>
+                    <span class="error">
+                        <?php echo $authorSelectError; ?>
+                    </span>
                     <div class="mb-3 mt-3">
                         <label for="genre">Genre</label>
-                        
+
                         <select name="genre_select" class="form-control select-control" id="genre_select">
+                            <option value="">--Select a genre--</option>
                             <?php
-                            $genres = $con->prepare("SELECT * FROM genres");
+                            $genres = $con->prepare("SELECT * FROM genres ORDER BY genre");
                             $genres->execute();
-                            while($genre_list = $genres->fetch(PDO::FETCH_ASSOC)) {
+                            while ($genre_list = $genres->fetch(PDO::FETCH_ASSOC)) {
                                 extract($genre_list)
-                            ?>
-                            <option value="<?php echo $genre_id?>"><?php echo $genre?></option>
-                            <?php
+                                    ?>
+                                
+                                <option value="<?php echo $genre_id ?>"><?php echo $genre ?></option>
+                                <?php
                             }
                             ?>
                         </select>
                     </div>
+                    <span class="error">
+                        <?php echo $genreSelectError; ?>
+                    </span>
                     <div class="mb-3 mt-3">
                         <label for="blurb">Blurb</label>
                         <textarea class="form-control" id="blurb" name="blurb" rows="3" placeholder="Blurb"></textarea>
                     </div>
+                    <span class="error">
+                        <?php echo $blurbError; ?>
+                    </span>
                     <div class="row">
                         <div class="mb-3 mt-3 col">
                             <label for="price">Price</label>
                             <input type="number" class="form-control" id="price" name="price" min="0.01" max="10000.00"
                                 step="0.01">
+                            <span class="error">
+                                <?php echo $priceError; ?>
+                            </span>
                         </div>
                         <div class="mb-3 mt-3 col">
                             <label for="qty">Quanity</label>
                             <input type="number" class="form-control" id="qty" name="qty" min="1" max="10000">
+                            <span class="error">
+                                <?php echo $qtyError; ?>
+                            </span>
                         </div>
                     </div>
 
@@ -68,6 +95,9 @@ include 'src/fetchNewBook.php';
                         <label for="book-cover" class="form-label">Book Cover</label>
                         <input type="file" class="form-control" name="book-cover" id="book-cover">
                     </div>
+                    <span class="error">
+                        <?php echo $coverError; ?>
+                    </span>
                     <div class="mb-3 mt-3">
 
                     </div>

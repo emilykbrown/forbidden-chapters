@@ -13,6 +13,9 @@ include 'src/fetchNewGenre.php';
                         <label for="genre">Genre</label>
                         <input type="text" class="form-control" name="genre" id="genre" placeholder="Genre">
                     </div>
+                    <span class="error">
+                        <?php echo $genreError; ?>
+                    </span>
                     <div class="d-grid gap-4">
                         <button type="submit" name="add-genre" value="add-genre" class="btn btn-success">Add Genre</button>
                     </div>
