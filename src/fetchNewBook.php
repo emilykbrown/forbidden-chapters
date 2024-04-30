@@ -99,7 +99,7 @@ if (isset($_POST['add-book'])) {
                     echo $file_location;
                     // Insert into database
                     $id = create_unique_id();
-                    $query = "INSERT INTO `books` SET id=:id, title=:title, isbn=:isbn, author_id=:author_id, genre_id=:genre_id, blurb=:blurb, price=:price, qty=:qty, file_location=:cover";
+                    $query = "INSERT INTO `books` SET id=:id, title=:title, isbn=:isbn, author_id=:author_id, genre_id=:genre_id, blurb=:blurb, price=:price, qty=:qty, cover=:cover";
                     $stmt = $con->prepare($query);
                     $stmt->bindParam(':id', $id);
                     $stmt->bindParam(':title', $title);
