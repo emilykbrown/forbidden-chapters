@@ -68,13 +68,13 @@ if(!empty($_SESSION['userlogin'])) {
         <tbody>
             <tr>
                 <?php
-                $authors = $con->prepare("SELECT authors.author_fname, authors.author_lname, authors.author_id, COUNT(books.author_id) AS author_book_count
+                $authors_tbl = $con->prepare("SELECT authors.author_fname, authors.author_lname, authors.author_id, COUNT(books.author_id) AS author_book_count
                 FROM authors 
                 LEFT JOIN books ON authors.author_id = books.author_id
                 GROUP BY authors.author_id");
-                $authors->execute();
-                while ($author = $authors->fetch(PDO::FETCH_ASSOC)) {
-                    extract($author);
+                $authors_tbl->execute();
+                while ($author_row = $authors_tbl->fetch(PDO::FETCH_ASSOC)) {
+                    extract($author_row);
                 ?>
                 <td><?php echo $author_id; ?></td>
                 <td><?php echo $author_fname; ?></td>

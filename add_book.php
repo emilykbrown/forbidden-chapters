@@ -92,8 +92,8 @@ include 'src/fetchNewBook.php';
                     </div>
 
                     <div class="mb-3 mt-3">
-                        <label for="book-cover" class="form-label">Book Cover</label>
-                        <input type="file" class="form-control" name="book-cover" id="book-cover">
+                        <label for="book_img" class="form-label">Book Cover</label>
+                        <input type="file" class="form-control" name="book_img" id="book_img">
                     </div>
                     <span class="error">
                         <?php echo $coverError; ?>

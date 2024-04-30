@@ -59,7 +59,7 @@ if (isset($_POST['signup'])) {
 
   if (empty($upass)) {
     $upassError = "Enter a password";
-  } elseif (!preg_match($upassRegex, $password)) {
+  } elseif (!preg_match($upassRegex, $upass)) {
     $upassError = "Invalid password";
   } else {
     $validCheck += 1;
@@ -81,7 +81,7 @@ if (isset($_POST['signup'])) {
     $hashpass = password_hash($upass, PASSWORD_BCRYPT, $options);
   
     // Validate username and email
-    $query = "SELECT * FROM users WHERE (username=? || email=?)";
+    $query = "SELECT * FROM users WHERE (username=? OR email=?)";
     $stmt = $con->prepare($query);
     $stmt->bindParam(1, $username);
     $stmt->bindParam(2, $email);
@@ -96,8 +96,8 @@ if (isset($_POST['signup'])) {
       $stmt = $con->prepare($query);
       $urole = "User";
       $stmt->bindParam(':id', $id);
-      $stmt->bindParam(':fname', $fname);
-      $stmt->bindParam(':lname', $lname);
+      $stmt->bindParam(':fname', $fName);
+      $stmt->bindParam(':lname', $lName);
       $stmt->bindParam(':email', $email);
       $stmt->bindParam(':phone', $phone);
       $stmt->bindParam(':username', $username);

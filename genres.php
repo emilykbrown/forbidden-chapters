@@ -67,13 +67,13 @@ if (!empty($_SESSION['userlogin'])) {
                         </thead>
                         <tbody>
                             <?php
-                            $genres = $con->prepare("SELECT genres.genre, genres.genre_id, COUNT(books.genre_id) AS genre_book_count
+                            $genres_tbl = $con->prepare("SELECT genres.genre, genres.genre_id, COUNT(books.genre_id) AS genre_book_count
                             FROM genres
                             LEFT JOIN books ON genres.genre_id = books.genre_id
                             GROUP BY genres.genre_id");
-                            $genres->execute();
-                            while ($genre = $genres->fetch(PDO::FETCH_ASSOC)) {
-                                extract($genre);
+                            $genres_tbl->execute();
+                            while ($genre_row = $genres_tbl->fetch(PDO::FETCH_ASSOC)) {
+                                extract($genre_row);
                                 ?>
                                 <tr>
                                     <td><?php echo $genre_id; ?></td>

@@ -38,19 +38,10 @@ if(isset($_POST['login'])) {
         echo "Invalid username or password";
     }
 }
-
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<?php
-  include('src/header.php');
-?>
-</head>
-<body>
-  
-  <div class="container mt-3 w-50">
+<body> 
+  <div class="container mt-2 mb-2">
     <div class="card">
       <div class="card-header">Welcome back</div>
       <div class="card-body">
