@@ -1,7 +1,5 @@
 <?php
 
-
-
 include 'variables.php';
 
 $validCheck = 0;
@@ -79,8 +77,7 @@ if (isset($_POST['add-book'])) {
     } else {
         $validCheck += 1;
     }
-        //$id = create_unique_id();
-
+       //$id = create_unique_id();
         $img_file = $_FILES['book_img']['name'];
         $tmpName = $_FILES['book_img']['tmp_name'];
         $fileSize = $_FILES['book_img']['size'];
@@ -95,8 +92,9 @@ if (isset($_POST['add-book'])) {
                 $file = explode('/', $contentType);
                 $book_img = date('Ymd') . time();
                 $file_location = 'upload/' . $book_img . '.' . $end;
+                echo $file_location;
                 if (move_uploaded_file($tmpName, $file_location)) {
-                    echo $file_location;
+                    require "config/db.php";
                     // Insert into database
                     $id = create_unique_id();
                     $query = "INSERT INTO `books` SET id=:id, title=:title, isbn=:isbn, author_id=:author_id, genre_id=:genre_id, blurb=:blurb, price=:price, qty=:qty, cover=:cover";
@@ -120,5 +118,4 @@ if (isset($_POST['add-book'])) {
         } else {
             echo "Validation failed";
         }
-    
-}
+    }

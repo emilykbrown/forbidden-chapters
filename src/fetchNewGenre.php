@@ -19,7 +19,7 @@ if(isset($_POST['add-genre'])) {
     $genre_id = create_unique_id();
     $genre = $_POST['genre'];
 
-    if ($validCheck == 1){
+    {
         $genre_id = create_unique_id();
     
         $query = "INSERT INTO `genres` SET genre_id=:genre_id, genre=:genre";
