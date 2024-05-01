@@ -94,7 +94,7 @@ if (isset($_POST['add-book'])) {
                 $file_location = 'upload/' . $book_img . '.' . $end;
                 echo $file_location;
                 if (move_uploaded_file($tmpName, $file_location)) {
-                    require "config/db.php";
+                    
                     // Insert into database
                     $id = create_unique_id();
                     $query = "INSERT INTO `books` SET id=:id, title=:title, isbn=:isbn, author_id=:author_id, genre_id=:genre_id, blurb=:blurb, price=:price, qty=:qty, cover=:cover";
