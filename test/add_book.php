@@ -18,7 +18,7 @@ include 'src/fetchNewBook.php';
                     </span>
                     <div class="mb-3 mt-3">
                         <label for="isbn">ISBN</label>
-                        <input type="text" class="form-control" name="isbn" id="isbn" placeholder="ISBN">
+                        <input type="number" class="form-control" name="isbn" id="isbn" placeholder="ISBN">
                     </div>
                     <span class="error">
                         <?php echo $isbnError; ?>
