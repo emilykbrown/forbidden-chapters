@@ -77,45 +77,50 @@ if (isset($_POST['add-book'])) {
     } else {
         $validCheck += 1;
     }
-       //$id = create_unique_id();
-        $img_file = $_FILES['book_img']['name'];
-        $tmpName = $_FILES['book_img']['tmp_name'];
-        $fileSize = $_FILES['book_img']['size'];
-        $contentType = mime_content_type($_FILES['book_img']['tmp_name']);
+    $id = create_unique_id();
 
-        if ($fileSize < 500000000) {
-            $file = explode('.', $img_file);
-            $end = end($file);
-            $Allowed_ext = array('image/png', 'image/PNG', 'image/jpg', 'image/JPG', 'image/jpeg', 'image/JPEG');
+    echo $isbn;
 
-            if (in_array($contentType, $Allowed_ext)) {
-                $file = explode('/', $contentType);
-                $book_img = date('Ymd') . time();
-                $file_location = 'upload/' . $book_img . '.' . $end;
-                echo $file_location;
-                if (move_uploaded_file($tmpName, $file_location)) {
-                    
-                    // Insert into database
-                    $id = create_unique_id();
-                    $query = "INSERT INTO `books` SET id=:id, title=:title, isbn=:isbn, author_id=:author_id, genre_id=:genre_id, blurb=:blurb, price=:price, qty=:qty, cover=:cover";
-                    $stmt = $con->prepare($query);
-                    $stmt->bindParam(':id', $id);
-                    $stmt->bindParam(':title', $title);
-                    $stmt->bindParam(':isbn', $isbn);
-                    $stmt->bindParam(':author_id', $author_id);
-                    $stmt->bindParam(':genre_id', $genre_id);
-                    $stmt->bindParam(':blurb', $blurb);
-                    $stmt->bindParam(':price', $price);
-                    $stmt->bindParam(':qty', $qty);
-                    $stmt->bindParam(':cover', $file_location);
-                    if ($stmt->execute()) {
-                        echo "<script>window.location='inventory.php'</script>";
-                    }
-                }
-            } else {
-                echo "Validation failed";
-            }
-        } else {
-            echo "Validation failed";
-        }
-    }
+    // $img_file = $_FILES['book_img']['name'];
+    // $tmpName = $_FILES['book_img']['tmp_name'];
+    // $fileSize = $_FILES['book_img']['size'];
+    // $contentType = mime_content_type($_FILES['book_img']['tmp_name']);
+
+    // if ($fileSize < 500000000) {
+    //     $file = explode('.', $img_file);
+    //     $end = end($file);
+    //     $Allowed_ext = array('image/png', 'image/PNG', 'image/jpg', 'image/JPG', 'image/jpeg', 'image/JPEG');
+
+    //     if (in_array($contentType, $Allowed_ext)) {
+    //         $file = explode('/', $contentType);
+    //         $book_img = date('Ymd') . time();
+    //         $file_location = 'upload/' . $book_img . '.' . $end;
+    //         echo $file_location;
+    //         if (move_uploaded_file($tmpName, $file_location)) {
+
+    //             // Insert into database                
+                
+    //             $id = create_unique_id();
+    //             $query = "INSERT INTO `books` SET id=:id, title=:title, isbn=:isbn, author_id=:author_id, genre_id=:genre_id, blurb=:blurb, price=:price, qty=:qty, cover=:cover";
+    //             $stmt = $con->prepare($query);
+    //             $stmt->bindParam(':id', $id);
+    //             $stmt->bindParam(':title', $title);
+    //             $stmt->bindParam(':isbn', $isbn);
+    //             $stmt->bindParam(':author_id', $author_id);
+    //             $stmt->bindParam(':genre_id', $genre_id);
+    //             $stmt->bindParam(':blurb', $blurb);
+    //             $stmt->bindParam(':price', $price);
+    //             $stmt->bindParam(':qty', $qty);
+    //             $stmt->bindParam(':cover', $file_location);
+    //             if ($stmt->execute()) {
+    //                 echo "<script>window.location='inventory.php'</script>";
+    //             }
+
+    //         }
+    //     } else {
+    //         echo "Validation failed";
+    //     }
+    // } else {
+    //     echo "Validation failed";
+    // }
+}
