@@ -36,27 +36,27 @@ if (isset($_POST['add-book'])) {
 
     if ($author_select->rowCount() == 0) {
         $author_selectError = "Enter author";
-    } elseif (!preg_match($nameRegex, $author_id)) {
-        $author_selectError = "Invalid author";
     } else {
+        $author_id = $author_select->fetch(PDO::FETCH_ASSOC);
+        $author_id = $author_id['author_id'];
         $validCheck += 1;
     }
 
     $genre_select = $con->prepare("SELECT genre_id from genres WHERE genre_id=?");
     $genre_select->bindParam(1, $genre_id);
     $genre_select->execute();
-
+    
     if ($genre_select->rowCount() == 0) {
         $genre_selectError = "Enter genre";
-    } elseif (!preg_match($nameRegex, $genre_id)) {
-        $genre_selectError = "Invalid genre";
     } else {
+        $genre_id = $genre_select->fetch(PDO::FETCH_ASSOC);
+        $genre_id = $genre_id['genre_id'];
         $validCheck += 1;
     }
 
     if (empty($blurb)) {
         $blurbError = "Enter blurb";
-    } elseif (!preg_match($nameRegex, $blurb)) {
+    } elseif (!preg_match($textRegex, $blurb)) {
         $blurbError = "Invalid blurb";
     } else {
         $validCheck += 1;
@@ -77,32 +77,52 @@ if (isset($_POST['add-book'])) {
     } else {
         $validCheck += 1;
     }
-    $id = create_unique_id();
+
+    
 
     $img_file = $_FILES['book_img']['name'];
 	$ext = pathinfo($img_file, PATHINFO_EXTENSION);
     $file_name = create_unique_id() . '.' . $ext;
-    echo $file_name;
+    $tmp_name = $_FILES['book_img']['tmp_name'];
+    $file_size = $_FILES['book_img']['size'];
+    $file_path = 'upload/' . $file_name;    
 
     // Above is working
 
-    // $tmpName = $_FILES['book_img']['tmp_name'];
-    // $fileSize = $_FILES['book_img']['size'];
-    // $file = explode('.', $img_file);
-    // $end = end($file);
     // $img_folder = 'upload/' . $rename;
-    //     $Allowed_ext = array('image/png', 'image/PNG', 'image/jpg', 'image/JPG', 'image/jpeg', 'image/JPEG');
-    //         $file_location = 'upload/' . $book_img . '.' . $end;
-    //         echo $file_location;
 
-    if ($img_size > 2000000) {
-		echo "Image too big";
-	} else {
+    if (empty($_FILES['book_img'])) {
+        $coverError = "Enter book cover";
+    } elseif (!preg_match($imgRegex, $file_path)) {
+        $coverError = "Unsupported file type";
+    } elseif ($file_size > 2000000) {
+		$coverError = "Image too big";
+    } else {
         $validCheck += 1;
     }
+    
+    echo $file_name;
+    echo '<br>';
+    echo $file_path;
 
     if ($validCheck == 8) {
-        echo "all good";
+        $book_id = create_unique_id();
+        $query = "INSERT INTO `books` SET book_id=:book_id, title=:title, isbn=:isbn, author_id=:author_id, genre_id=:genre_id, blurb=:blurb, price=:price, qty=:qty, book_img=:book_img";
+
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':book_id', $book_id);
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':isbn', $isbn);
+        $stmt->bindParam(':author_id', $author_id);
+        $stmt->bindParam(':genre_id', $genre_id);
+        $stmt->bindParam(':blurb', $blurb);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':qty', $qty);
+        $stmt->bindParam(':book_img', $file_path);
+        
+        if ($stmt->execute()) {
+            echo "<script>window.location='inventory.php'</script>";
+        }
     } else {
         echo "fuck";
     }

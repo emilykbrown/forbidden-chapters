@@ -74,7 +74,7 @@ if (isset($_POST['signup'])) {
   }
 
   if ($validCheck == 7) {
-    $id = create_unique_id();
+    $user_id = create_unique_id();
   
     // Hash password
     $options = ['cost' => 12];
@@ -90,12 +90,12 @@ if (isset($_POST['signup'])) {
   
     // Unique username and email
     if ($stmt->rowCount() == 0) {
-      $query = "INSERT INTO users SET id=:id, fname=:fname, lname=:lname, email=:email, phone=:phone, username=:username, upass=:upass, urole=:urole";
+      $query = "INSERT INTO users SET user_id=:user_id, fname=:fname, lname=:lname, email=:email, phone=:phone, username=:username, upass=:upass, urole=:urole";
       
       
       $stmt = $con->prepare($query);
       $urole = "User";
-      $stmt->bindParam(':id', $id);
+      $stmt->bindParam(':user_id', $user_id);
       $stmt->bindParam(':fname', $fName);
       $stmt->bindParam(':lname', $lName);
       $stmt->bindParam(':email', $email);

@@ -57,7 +57,7 @@ if (!empty($_SESSION['userlogin'])) {
             </thead>
             <tbody>
                 <?php
-                $books_tbl = $con->prepare("SELECT books.id, books.title, books.isbn, authors.author_fname, authors.author_lname, genres.genre, books.price, books.qty, books.cover
+                $books_tbl = $con->prepare("SELECT books.book_id, books.title, books.isbn, authors.author_fname, authors.author_lname, genres.genre, books.price, books.qty, books.book_img
                     FROM books
                     LEFT JOIN authors ON books.author_id = authors.author_id
                     LEFT JOIN genres ON books.genre_id = genres.genre_id
@@ -67,9 +67,9 @@ if (!empty($_SESSION['userlogin'])) {
                     extract($book_row);
                 ?>
                 <tr>
-                    <td><?php echo $id; ?></td>
+                    <td><?php echo $book_id; ?></td>
                     <td><?php echo $title; ?></td>
-                    <td><?php echo $cover; ?></td>
+                    <td><?php echo $book_img; ?></td>
                     <td><?php echo $isbn; ?></td>
                     <td><?php echo $author_fname; ?></td>
                     <td><?php echo $author_lname; ?></td>
