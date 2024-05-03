@@ -16,15 +16,12 @@ if(isset($_POST['add-genre'])) {
         $validCheck += 1;
     }
     // Set variables
-    $genre_id = create_unique_id();
     $genre = $_POST['genre'];
 
-    if ($validCheck == 2) {
-        $genre_id = create_unique_id();
+    if ($validCheck == 1) {
     
-        $query = "INSERT INTO `genres` SET genre_id=:genre_id, genre=:genre";
+        $query = "INSERT INTO `genres` SET genre=:genre";
         $stmt = $con->prepare($query);
-        $stmt->bindParam(':genre_id', $genre_id);
         $stmt->bindParam(':genre', $genre);
         $stmt->execute();
 
