@@ -1,10 +1,15 @@
+
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 include 'variables.php';
 
-$validCheck = 0;
 
 if (isset($_POST['add-book'])) {
+    $validCheck = 0;
+    
     $title = htmlspecialchars($_POST['book-title']);
     $isbn = htmlspecialchars($_POST['isbn']);
     $author_id = htmlspecialchars($_POST['author_select']);
@@ -78,32 +83,41 @@ if (isset($_POST['add-book'])) {
         $validCheck += 1;
     }
 
-    
 
-    $img_file = $_FILES['book_img']['name'];
-	$ext = pathinfo($img_file, PATHINFO_EXTENSION);
-    $file_name = create_unique_id() . '.' . $ext;
-    $tmp_name = $_FILES['book_img']['tmp_name'];
-    $file_size = $_FILES['book_img']['size'];
-    $file_path = 'upload/' . $file_name;    
+   
+    if ($_FILES['book_img']['error'] != UPLOAD_ERR_OK) {
+        $coverError = "Error uploading file";
+    } else {
+        $img_file = $_FILES['book_img']['name'];
+        $ext = pathinfo($img_file, PATHINFO_EXTENSION);
+        $file_name = unique_id() . '.' . $ext;
+        $tmp_name = $_FILES['book_img']['tmp_name'];
+        $file_size = $_FILES['book_img']['size'];
+        $file_path = 'upload/' . $file_name; 
+
+        if (!move_uploaded_file($tmp_name, $file_path)) {
+            $coverError = "Failed to move file";
+        } elseif ($file_size > 2000000) {
+            $coverError = "Image too big";
+        } else {
+            $validCheck += 1;
+        }
+    } 
 
     // Above is working
 
     // $img_folder = 'upload/' . $rename;
 
-    if (empty($_FILES['book_img'])) {
-        $coverError = "Enter book cover";
-    } elseif (!preg_match($imgRegex, $file_path)) {
-        $coverError = "Unsupported file type";
-    } elseif ($file_size > 2000000) {
-		$coverError = "Image too big";
-    } else {
-        $validCheck += 1;
-    }
+    // if (empty($_FILES['book_img'])) {
+    //     $coverError = "Enter book cover";
+    // } elseif (!preg_match($imgRegex, $file_path)) {
+    //     $coverError = "Unsupported file type";
+    // } elseif ($file_size > 2000000) {
+	// 	$coverError = "Image too big";
+    // } else {
+    //     $validCheck += 1;
+    // }
     
-    echo $file_name;
-    echo '<br>';
-    echo $file_path;
 
     if ($validCheck == 8) {
         $book_id = create_unique_id();
