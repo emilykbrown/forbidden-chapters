@@ -80,7 +80,7 @@ if (!empty($_SESSION['userlogin'])) {
                                     <td><?php echo $genre; ?></td>
                                     <td><?php echo $genre_book_count; ?></td>
                                     <td>
-                                        <a href="edits/edit-genre.php" class="btn btn-warning btn-sm"><i
+                                        <a href="src/edit_genre.php" name="edit-genre" class="btn btn-warning btn-sm"><i
                                                 class="fa-solid fa-pen-to-square"></i></a>
                                         <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
                                     </td>
