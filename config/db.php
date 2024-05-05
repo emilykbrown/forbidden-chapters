@@ -18,7 +18,7 @@ try
         }
 
         return $randomString;
-    }
+   }
 =======
     // echo uniqid();
 
