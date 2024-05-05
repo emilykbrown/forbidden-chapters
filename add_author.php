@@ -1,5 +1,5 @@
 <?php
-include 'src/fetchNewAuthor.php';
+include 'fetches/fetchNewAuthor.php';
 ?>
 
 <body>
