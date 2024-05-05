@@ -15,13 +15,19 @@ if(isset($_POST['add-genre'])) {
     } else {
         $validCheck += 1;
     }
+<<<<<<< HEAD
 
     if ($validCheck == 1) { // Changed to 1
         $genre_id = create_unique_id();
+=======
+    // Set variables
+    $genre = $_POST['genre'];
+
+    if ($validCheck == 1) {
+>>>>>>> 17ddd3bd128dcc8f14c3b146569e56b852811057
     
-        $query = "INSERT INTO `genres` SET genre_id=:genre_id, genre=:genre";
+        $query = "INSERT INTO `genres` SET genre=:genre";
         $stmt = $con->prepare($query);
-        $stmt->bindParam(':genre_id', $genre_id);
         $stmt->bindParam(':genre', $genre);
 
         if ($stmt->execute()) {
