@@ -83,43 +83,6 @@ if (isset($_POST['add-book'])) {
         $validCheck += 1;
     }
 
-<<<<<<< HEAD
-
-   
-    if ($_FILES['book_img']['error'] != UPLOAD_ERR_OK) {
-        $coverError = "Error uploading file";
-    } else {
-        $img_file = $_FILES['book_img']['name'];
-        $ext = pathinfo($img_file, PATHINFO_EXTENSION);
-        $file_name = unique_id() . '.' . $ext;
-        $tmp_name = $_FILES['book_img']['tmp_name'];
-        $file_size = $_FILES['book_img']['size'];
-        $file_path = 'upload/' . $file_name; 
-
-        if (!move_uploaded_file($tmp_name, $file_path)) {
-            $coverError = "Failed to move file";
-        } elseif ($file_size > 2000000) {
-            $coverError = "Image too big";
-        } else {
-            $validCheck += 1;
-        }
-    } 
-
-    // Above is working
-
-    // $img_folder = 'upload/' . $rename;
-
-    // if (empty($_FILES['book_img'])) {
-    //     $coverError = "Enter book cover";
-    // } elseif (!preg_match($imgRegex, $file_path)) {
-    //     $coverError = "Unsupported file type";
-    // } elseif ($file_size > 2000000) {
-	// 	$coverError = "Image too big";
-    // } else {
-    //     $validCheck += 1;
-    // }
-    
-=======
 
 
     $img_file = $_FILES['book_img']['name'];
@@ -140,7 +103,6 @@ if (isset($_POST['add-book'])) {
     } else {
         $validCheck += 1;
     }
->>>>>>> 17ddd3bd128dcc8f14c3b146569e56b852811057
 
          if ($validCheck == 8) {
             $book_id = uniqid();
