@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config/db.php';
+include_once 'config/db.php';
 if (isset($_COOKIE['user_id'])) {
     $user_id = $_COOKIE['user_id'];
 } else {
@@ -15,7 +15,8 @@ if (!empty($_SESSION['userlogin'])) {
 
     $urole = $_SESSION['urole'];
     if ($urole == "Admin") {
-        include 'src/fetchNewBook.php';
+        
+        include_once'src/fetchNewBook.php';
 
 ?>
 <!DOCTYPE html>

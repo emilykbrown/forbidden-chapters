@@ -1,10 +1,9 @@
 
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+include_once 'config/db.php';
 
-include 'variables.php';
+include_once 'variables.php';
 
 
 if (isset($_POST['add-book'])) {
@@ -87,7 +86,7 @@ if (isset($_POST['add-book'])) {
 
     $img_file = $_FILES['book_img']['name'];
     $ext = pathinfo($img_file, PATHINFO_EXTENSION);
-    $file_name = uniqid() . '.' . $ext;
+    $file_name = create_unique_id() . '.' . $ext;
     $tmp_name = $_FILES['book_img']['tmp_name'];
     $file_size = $_FILES['book_img']['size'];
     $file_path = 'upload/' . $file_name; 
@@ -105,6 +104,7 @@ if (isset($_POST['add-book'])) {
     }
 
          if ($validCheck == 8) {
+            $book_id = create_unique_id();
             $query = "INSERT INTO `books` 
             SET 
                 book_id=:book_id,

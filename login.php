@@ -6,7 +6,7 @@ if(isset($_POST['login'])) {
     include 'config/db.php';
    
     // Set variables
-    $user_id = uniqid();
+    $user_id = create_unique_id();
     $username = $_POST['username'];
     $upass = $_POST['upass'];
     
