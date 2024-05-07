@@ -1,29 +1,37 @@
 <?php
-// Include database configuration
+
+// Include database
 include "../config/db.php";
 
-// Check if genre_id is set in the URL
-if(isset($_GET['genre_id'])) {
-    // Get the ID of the row you want to delete
-    $genre_id = $_GET['genre_id'];
-    
-    // Construct the SQL query to delete the row
-    $sql = "DELETE FROM genre WHERE genre_id = $genre_id";
+$genre_id = isset($_GET['genre_id']) ? $_GET['genre_id'] : die('No ID Found!');
 
-    // Execute the query
-    if ($conn) { // Check if connection is established
-        if (mysqli_query($conn, $sql)) {
-            echo "Row deleted successfully";
-        } else {
-            echo "Error deleting row: " . mysqli_error($conn);
-        }
+// Check if ID is set and not empty
+if (isset($genre_id)) {
+
+    //echo $genre_id;
+
+    // Make a query
+    $query = "DELETE FROM genres WHERE genre_id=?";
+    // Prepare query
+    $stmt = $con->prepare($query);
+    // Bind params
+    $stmt->bindParam(1, $genre_id);    
+    // Execute query
+    $success = $stmt->execute();
+
+    // Return success response
+    echo json_encode(['success' => $success]);
+    exit();
+
+    if ($stmt->execute()) {
+        echo "Yay";
     } else {
-        echo "Database connection failed!";
+        echo "Nope";
     }
-} else {
-    echo "genre_id parameter not set in the URL";
+
 }
 
-// Close the database connection (if required)
-mysqli_close($conn);
+// If ID is not set or empty, return failure response
+echo json_encode(['success' => false]);
+
 ?>

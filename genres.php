@@ -74,18 +74,17 @@ if (!empty($_SESSION['userlogin'])) {
                             $genres_tbl->execute();
                             while ($genre_row = $genres_tbl->fetch(PDO::FETCH_ASSOC)) {
                                 extract($genre_row);
-                                ?>
-                                <tr>
-                                    <td><?php echo $genre_id; ?></td>
-                                    <td><?php echo $genre; ?></td>
-                                    <td><?php echo $genre_book_count; ?></td>
-                                    <td>
-                                        <a href="src/edit_genre.php" name="edit-genre" class="btn btn-warning btn-sm"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="src/delete_genre.php" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></a>
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                                
+                                echo '<tr>';
+                                echo '<td>', $genre_id, '</td>';
+                                echo '<td>', $genre, '</td>';
+                                echo '<td>', $genre_book_count, '</td>';
+                                echo '<td>';
+                                echo "<a href='src/edit_genre.php?{$genre_id}' name='edit-genre' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a>";
+                                echo "<button onclick='confirmDeleteGenre' name='edit-genre' class='btn btn-danger btn-sm'><i class='fa-solid fa-x'></i><button>";
+                                echo '</td>';
+                                echo '</tr>';
+                            }; ?>
                         </tbody>
 
                     </table>
