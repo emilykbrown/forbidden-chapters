@@ -82,7 +82,7 @@ if (!empty($_SESSION['userlogin'])) {
                                     <td>
                                         <a href="src/edit_genre.php" name="edit-genre" class="btn btn-warning btn-sm"><i
                                                 class="fa-solid fa-pen-to-square"></i></a>
-                                        <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
+                                        <a href="src/delete_genre.php" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></a>
                                     </td>
                                 </tr>
                             <?php } ?>

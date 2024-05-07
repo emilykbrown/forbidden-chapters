@@ -106,17 +106,19 @@ if (isset($_POST['add-book'])) {
 
          if ($validCheck == 8) {
             $query = "INSERT INTO `books` 
-SET 
- title=:title, 
-    isbn=:isbn, 
-    author_id=(SELECT author_id FROM `authors` WHERE author_id = :author_id), 
-    genre_id=(SELECT genre_id FROM `genres` WHERE genre_id = :genre_id), 
-    blurb=:blurb, 
-    price=:price, 
-    qty=:qty, 
-    book_img=:book_img";
+            SET 
+                book_id=:book_id,
+                title=:title, 
+                isbn=:isbn, 
+                author_id=(SELECT author_id FROM `authors` WHERE author_id = :author_id), 
+                genre_id=(SELECT genre_id FROM `genres` WHERE genre_id = :genre_id), 
+                blurb=:blurb, 
+                price=:price, 
+                qty=:qty, 
+                book_img=:book_img";
             
             $stmt = $con->prepare($query);
+            $stmt->bindParam(':book_id', $book_id);
             $stmt->bindParam(':title', $title);
             $stmt->bindParam(':isbn', $isbn);
             $stmt->bindParam(':author_id', $author_id);
