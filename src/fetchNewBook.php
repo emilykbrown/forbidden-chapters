@@ -105,7 +105,6 @@ if (isset($_POST['add-book'])) {
     }
 
          if ($validCheck == 8) {
-            $book_id = uniqid();
             $query = "INSERT INTO `books` 
 SET 
  title=:title, 
