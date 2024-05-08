@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <?php echo isset($genreError) ? $genreError : ''; ?>
                     </span>
                     <div class="d-grid gap-4">
-                        <button type="submit" name="edit-genre" value="edit-genre" class="btn btn-success">Edit Genre</button>
+                        <button type="submit" name="edit-genre" value="edit-genre" class="btn btn-success">Update Genre</button>
                     </div>
                 </form>
             </div>

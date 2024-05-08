@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <?php echo $author_lnameError; ?>
                     </span>
                     <div class="d-grid gap-4">
-                        <button type="submit" name="add-author" value="add-author" class="btn btn-success">Add Author</button>
+                        <button type="submit" name="add-author" value="add-author" class="btn btn-success">Update Author</button>
                     </div>
                 </form>
             </div>
