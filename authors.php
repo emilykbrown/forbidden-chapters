@@ -66,7 +66,7 @@ if(!empty($_SESSION['userlogin'])) {
             </tr> 
         </thead>
         <tbody>
-            <tr>
+            
                 <?php
                 $authors_tbl = $con->prepare("SELECT authors.author_fname, authors.author_lname, authors.author_id, COUNT(books.author_id) AS author_book_count
                 FROM authors 
@@ -75,17 +75,19 @@ if(!empty($_SESSION['userlogin'])) {
                 $authors_tbl->execute();
                 while ($author_row = $authors_tbl->fetch(PDO::FETCH_ASSOC)) {
                     extract($author_row);
-                ?>
-                <td><?php echo $author_id; ?></td>
-                <td><?php echo $author_fname; ?></td>
-                <td><?php echo $author_lname; ?></td>
-                <td><?php echo $author_book_count; ?></td>
-                <td>
-                    <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
-                </td>
-            </tr>
-            <?php } ?>
+                
+                    echo '<tr>';
+                                echo '<td>', $author_id, '</td>';
+                                echo '<td>', $author_fname, '</td>';   
+                                echo '<td>', $author_lname, '</td>';   
+                                echo '<td>', $author_book_count, '</td>';
+                                echo '<td>';
+                                echo "<a href='edits/edit_author.php?id={$author_id}' name='edit-author' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a>&nbsp;&nbsp;";
+                                echo "<button onclick='confirmDeleteAuthor' name='edit-genre' class='btn btn-danger btn-sm'><i class='fa-solid fa-x'></i></button>";
+                                echo '</td>';
+                                echo '</tr>';
+                
+            } ?>
         </tbody>
 </table>
 </div>

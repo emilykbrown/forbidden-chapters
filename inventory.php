@@ -66,23 +66,22 @@ if (!empty($_SESSION['userlogin'])) {
                 $books_tbl->execute();
                 while ($book_row = $books_tbl->fetch(PDO::FETCH_ASSOC)) {
                     extract($book_row);
-                ?>
-                <tr>
-                    <td><?php echo $book_id; ?></td>
-                    <td><?php echo $title; ?></td>
-                    <td><?php echo $book_img; ?></td>
-                    <td><?php echo $isbn; ?></td>
-                    <td><?php echo $author_fname; ?></td>
-                    <td><?php echo $author_lname; ?></td>
-                    <td><?php echo $price; ?></td>
-                    <td><?php echo $qty ?></td>
-                    <td><?php echo $genre; ?></td>
-                    <td>
-                        <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
-                    </td>
-                </tr>
-                <?php } ?>
+                    echo '<tr>';
+                    echo '<td>', $book_id, '</td>';
+                    echo '<td>', $title, '</td>';
+                    echo '<td>', $book_img, '</td>';
+                    echo '<td>', $isbn, '</td>';
+                    echo '<td>', $author_fname, '</td>';
+                    echo '<td>', $author_lname, '</td>';
+                    echo '<td>', $price, '</td>';
+                    echo '<td>', $qty, '</td>';
+                    echo '<td>', $genre, '</td>';
+                    echo '<td>';
+                    echo "<a href='edits/edit_book.php?id={$book_id}' name='edit-book' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a>&nbsp;&nbsp;";
+                    echo "<button onclick='confirmDeleteGenre' name='edit-genre' class='btn btn-danger btn-sm'><i class='fa-solid fa-x'></i></button>";
+                    echo '</td>';
+                    echo '</tr>';
+                }; ?>
             </tbody>
         </table>
     </div>

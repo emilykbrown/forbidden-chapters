@@ -80,8 +80,8 @@ if (!empty($_SESSION['userlogin'])) {
                                 echo '<td>', $genre, '</td>';
                                 echo '<td>', $genre_book_count, '</td>';
                                 echo '<td>';
-                                echo "<a href='src/edit_genre.php?{$genre_id}' name='edit-genre' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a>";
-                                echo "<button onclick='confirmDeleteGenre' name='edit-genre' class='btn btn-danger btn-sm'><i class='fa-solid fa-x'></i><button>";
+                                echo "<a href='edits/edit_genre.php?id={$genre_id}' name='edit-genre' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a>&nbsp;&nbsp;";
+                                echo "<button onclick='confirmDeleteGenre' name='edit-genre' class='btn btn-danger btn-sm'><i class='fa-solid fa-x'></i></button>";
                                 echo '</td>';
                                 echo '</tr>';
                             }; ?>
