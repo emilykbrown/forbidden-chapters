@@ -4,13 +4,13 @@ include "../config/db.php";
 
 // Check if ID is provided in the URL
 if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $genre_id = $_GET['id'];
+    $book_id = $_GET['id'];
 
     try {
         // Prepare and execute the DELETE query
-        $query = "DELETE FROM genres WHERE genre_id=?";
+        $query = "DELETE FROM books WHERE book_id=?";
         $stmt = $con->prepare($query);
-        $stmt->bindParam(1, $genre_id);
+        $stmt->bindParam(1, $book_id);
         $success = $stmt->execute();
 
         // Check if the query was successful

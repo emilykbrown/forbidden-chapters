@@ -78,7 +78,7 @@ if (!empty($_SESSION['userlogin'])) {
                     echo '<td>', $genre, '</td>';
                     echo '<td>';
                     echo "<a href='edits/edit_book.php?id={$book_id}' name='edit-book' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a>&nbsp;&nbsp;";
-                    echo "<button onclick='confirmDeleteGenre' name='edit-genre' class='btn btn-danger btn-sm'><i class='fa-solid fa-x'></i></button>";
+                    echo "<button onclick='confirmDeleteBook()' name='delete-book' class='btn btn-danger btn-sm'><i class='fa-solid fa-x'></i></button>";
                     echo '</td>';
                     echo '</tr>';
                 }; ?>
@@ -91,6 +91,17 @@ if (!empty($_SESSION['userlogin'])) {
     $(document).ready(function () {
         $('#inventory_table').DataTable();
     });
+
+    function confirmDeleteBook(book_id) {
+    var result = confirm("Are you sure you want to delete this record?");
+    if (result) {
+        // Redirect to delete.php with the ID parameter
+        window.location.href = 'edits/delete_book.php?id=<?php echo $book_id; ?>';
+    } else {
+        // Do nothing
+    }
+}
+   
 </script>
 
 </body>

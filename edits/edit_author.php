@@ -39,29 +39,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST['author'])){
             $validCheck = 0;
         // Check if author is set in POST data
-            $author_fname = htmlspecialchars($_POST['author_fname']);
-            $author_lname = htmlspecialchars($_POST['author_lname']);
-
-            if (empty($author)) {
-                $authorError = "Enter author";
-            } elseif (!preg_match($textRegex, $author)) {
-                $authorError = "Invalid author";
-            } else {
-                // Set validCheck to 1 if all validations pass
-                $validCheck += 1;
-            }
+        $author_fname = htmlspecialchars($_POST['author_fname']);
+        $author_lname = htmlspecialchars($_POST['author_lname']);
+    
+        if (empty($author_fname)) {
+            $author_fnameError = "Enter first name";
+        } elseif (!preg_match($nameRegex, $author_fname)) {
+            $author_fnameError = "Invalid first name";
         } else {
-            // Handle case where author is not set in POST data
-            $authorError = "author is required";
+            $validCheck += 1;
+        }
+        
+        if (empty($author_lname)) {
+            $author_lnameError = "Enter last name";
+        } elseif (!preg_match($nameRegex, $author_lname)) {
+            $author_lnameError = "Invalid last name";
+        } else {
+            $validCheck += 1;
         }
 
         if ($validCheck == 2) {
             // Prepare update query
-            $query = "UPDATE authors SET author=:author WHERE author_id=:author_id";
+            $query = "UPDATE authors SET author_id=:author_id, author_fname=:author_fname, author_lname=:author_lname WHERE author_id=:author_id";
             $stmt = $con->prepare($query);
             // Bind parameters
             $stmt->bindParam(':author_id', $author_id);
-            $stmt->bindParam(':author', $author);
+            $stmt->bindParam(':author_fname', $author_fname);
+            $stmt->bindParam(':author_lname', $author_lname);
+            $stmt->execute();
             // Execute query
             if ($stmt->execute()) {
                 echo 'Author updated!';
@@ -69,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo 'Failed to update!';
             }
         }
-    }}
+    }}}
 
 ?>
 
