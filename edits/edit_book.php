@@ -1,33 +1,12 @@
 <?php
-// Include database configuration
 include_once '../config/db.php';
-
-// Include variables
 include '../src/variables.php'; 
 
 $validCheck = 0;
 
-// Check if author_id parameter is provided in the URL
 $book_id = isset($_GET['id']) ? $_GET['id'] : die('No ID Found!');
 
-if (isset($book_id)) {
-    
-    // Make a query
-    $query = "SELECT book_id, title, isbn, author_id, genre_id, price, qty, book_img FROM books WHERE book_id= ?";
-    // Prepare query
-    $stmt = $con->prepare($query);
-    // Bind params
-    $stmt->bindParam(1, $book_id);
-    // Execute query
-    $stmt->execute();
-    // Store the data
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    // Extract variables
-    extract($row);
-
-    
 if (isset($_POST['add-book'])) {
-    $validCheck = 0;
     
     $title = htmlspecialchars($_POST['book-title']);
     $isbn = htmlspecialchars($_POST['isbn']);
@@ -102,57 +81,69 @@ if (isset($_POST['add-book'])) {
         $validCheck += 1;
     }
 
-    $img_file = $_FILES['book_img']['name'];
-    $ext = pathinfo($img_file, PATHINFO_EXTENSION);
-    $file_name = create_unique_id() . '.' . $ext;
-    $tmp_name = $_FILES['book_img']['tmp_name'];
-    $file_size = $_FILES['book_img']['size'];
-    $file_path = 'upload/' . $file_name; 
-
-    // Above is working
-
-    if (empty($_FILES['book_img'])) {
-        $coverError = "Enter book cover";
-    } elseif (!preg_match($imgRegex, $file_path)) {
-        $coverError = "Unsupported file type";
-    } elseif ($file_size > 2000000) {
-        $coverError = "Image too big";
+    // Check for file upload errors
+    if ($_FILES['book_img']['error'] != UPLOAD_ERR_OK) {
+        $coverError = "Error uploading file";
     } else {
-        $validCheck += 1;
-    }
+        // File upload handling
+        $img_file = $_FILES['book_img']['name'];
+        $ext = pathinfo($img_file, PATHINFO_EXTENSION);
+        $file_name = create_unique_id() . '.' . $ext;
+        $file_path = 'upload/' . $file_name;
 
-         if ($validCheck == 8) {
-            $query = "UPDATE `books` 
-            SET 
-                book_id=:book_id,
-                title=:title, 
-                isbn=:isbn, 
-                author_id=(SELECT author_id FROM `authors` WHERE author_id = :author_id), 
-                genre_id=(SELECT genre_id FROM `genres` WHERE genre_id = :genre_id), 
-                blurb=:blurb, 
-                price=:price, 
-                qty=:qty, 
-                book_img=:book_img";
-            
-            $stmt = $con->prepare($query);
-            $stmt->bindParam(':book_id', $book_id);
-            $stmt->bindParam(':title', $title);
-            $stmt->bindParam(':isbn', $isbn);
-            $stmt->bindParam(':author_id', $author_id);
-            $stmt->bindParam(':genre_id', $genre_id);
-            $stmt->bindParam(':blurb', $blurb);
-            $stmt->bindParam(':price', $price);
-            $stmt->bindParam(':qty', $qty);         
-            $stmt->bindParam(':book_img', $file_path);
-            $stmt->execute();
-
+        if (!move_uploaded_file($_FILES['book_img']['tmp_name'], $file_path)) {
+            $coverError = "Error moving uploaded file";
         } else {
-            echo "Update failed";
+            $validCheck += 1;
         }
     }
 
+    
+    if ($validCheck == 8) {
+        $query = "UPDATE `books` 
+            SET 
+                title=:title, 
+                isbn=:isbn, 
+                author_id=:author_id, 
+                genre_id=:genre_id, 
+                blurb=:blurb, 
+                price=:price, 
+                qty=:qty, 
+                book_img=:book_img
+            WHERE book_id=:book_id";
+
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':book_id', $book_id);
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':isbn', $isbn);
+        $stmt->bindParam(':author_id', $author_id);
+        $stmt->bindParam(':genre_id', $genre_id);
+        $stmt->bindParam(':blurb', $blurb);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':qty', $qty);
+        $stmt->bindParam(':book_img', $file_path);
+        $stmt->execute();
+
+        // Check if the update was successful
+        if ($stmt->rowCount() > 0) {
+            echo "Update successful";
+        } else {
+            echo "Update failed";
+        }
+    } else {
+        echo "Validation failed";
+    }
 }
+
+// Retrieve book data from the database for populating form fields
+$query = "SELECT * FROM books WHERE book_id= ?";
+$stmt = $con->prepare($query);
+$stmt->bindParam(1, $book_id);
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+extract($row);
 ?>
+
 
 <body>
 
@@ -162,25 +153,21 @@ if (isset($_POST['add-book'])) {
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="mb-3 mt-3">
                         <label for="book-title">Book Title</label>
-                        <input type="text" class="form-control" name="book-title" id="book-title" value="<?php echo $title; ?>"
-                            placeholder="Book title">
+                        <input type="text" class="form-control" name="book-title" id="book-title" value="<?php echo $title; ?>">
                     </div>
                     <span class="error">
                         <?php echo $titleError; ?>
                     </span>
                     <div class="mb-3 mt-3">
                         <label for="isbn">ISBN</label>
-                        <input type="text" class="form-control" name="isbn" id="isbn" value="<?php echo $isbn; ?>" placeholder="ISBN">
+                        <input type="text" class="form-control" name="isbn" id="isbn"  value="<?php echo $isbn; ?>">
                     </div>
                     <span class="error">
                         <?php echo $isbnError; ?>
                     </span>
                     <div class="mb-3 mt-3">
                         <label for="author">Author</label>
-                        <select name="author_select" class="form-control select-control" id="author_select" value="
-                                    <?php echo $author_fname;
-                                    echo "<div>&nbsp;</div>";
-                                    echo $author_lname ?>">
+                        <select name="author_select" class="form-control select-control" id="author_select">
                             <option value="">--Select an author--</option>
                             <?php
                             $authors = $con->prepare("SELECT * FROM authors ORDER BY author_lname");
@@ -203,7 +190,7 @@ if (isset($_POST['add-book'])) {
                     <div class="mb-3 mt-3">
                         <label for="genre">Genre</label>
 
-                        <select name="genre_select" class="form-control select-control" id="genre_select" value="<?php echo $genre; ?>">
+                        <select name="genre_select" class="form-control select-control" id="genre_select">
                             <option value="">--Select a genre--</option>
                             <?php
                             $genres = $con->prepare("SELECT * FROM genres ORDER BY genre");
@@ -223,7 +210,7 @@ if (isset($_POST['add-book'])) {
                     </span>
                     <div class="mb-3 mt-3">
                         <label for="blurb">Blurb</label>
-                        <textarea class="form-control" id="blurb" name="blurb" rows="3" placeholder="Blurb" value="<?php echo $blurb; ?>"></textarea>
+                        <textarea class="form-control" id="blurb" name="blurb" rows="3" value="<?php echo $blurb; ?>"></textarea>
                     </div>
                     <span class="error">
                         <?php echo $blurbError; ?>
@@ -231,7 +218,7 @@ if (isset($_POST['add-book'])) {
                     <div class="row">
                         <div class="mb-3 mt-3 col">
                             <label for="price">Price</label>
-                            <input type="number" class="form-control" id="price" value="<?php echo $price; ?>"name="price" min="0.01" max="10000.00"
+                            <input type="number" class="form-control" id="price" value="<?php echo $price; ?>" name="price" min="0.01" max="10000.00"
                                 step="0.01">
                             <span class="error">
                                 <?php echo $priceError; ?>
@@ -239,7 +226,7 @@ if (isset($_POST['add-book'])) {
                         </div>
                         <div class="mb-3 mt-3 col">
                             <label for="qty">Quanity</label>
-                            <input type="number" class="form-control" id="qty" value="<?php echo $qty; ?>" name="qty" min="1" max="10000">
+                            <input type="number" class="form-control" id="qty" name="qty" value="<?php echo $qty; ?>" min="1" max="10000">
                             <span class="error">
                                 <?php echo $qtyError; ?>
                             </span>
@@ -257,9 +244,10 @@ if (isset($_POST['add-book'])) {
 
                     </div>
                     <div class="d-grid gap-4">
-                        <button type="submit" name="add-book" value="add-book" class="btn btn-success">Update Book</button>
+                        <button type="submit" name="add-book" value="add-book" class="btn btn-success">Add Book</button>
                     </div>
                 </form>
             </div>
         </div>
-    </d
+    </div>
+</body>
