@@ -89,7 +89,7 @@ if (isset($_POST['add-book'])) {
         $img_file = $_FILES['book_img']['name'];
         $ext = pathinfo($img_file, PATHINFO_EXTENSION);
         $file_name = create_unique_id() . '.' . $ext;
-        $file_path = 'upload/' . $file_name;
+        $file_path = '../upload/' . $file_name;
 
         if (!move_uploaded_file($_FILES['book_img']['tmp_name'], $file_path)) {
             $coverError = "Error moving uploaded file";

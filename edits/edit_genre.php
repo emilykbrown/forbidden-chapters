@@ -10,22 +10,16 @@ $genre_id = isset($_GET['id']) ? $_GET['id'] : die('No ID Found!');
 
 if (isset($genre_id)) {
 
-    // Make a query
+    // Feptch genre record
     $query = "SELECT genre_id, genre FROM genres WHERE genre_id= ?";
-    // Prepare query
     $stmt = $con->prepare($query);
-    // Bind params
     $stmt->bindParam(1, $genre_id);
-    // Execute query
     $stmt->execute();
-    // Store the data
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    // Extract variables
     extract($row);
 
 } else {
-    // Redirect if IcD paramter is not provided
-    header("Location: index.php");
+    header("Location: genres.php");
     exit();
 }
 
@@ -89,3 +83,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </body>
+a
