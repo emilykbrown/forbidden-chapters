@@ -69,7 +69,7 @@ if (!empty($_SESSION['userlogin'])) {
                     echo '<tr>';
                     echo '<td>', $book_id, '</td>';
                     echo '<td>', $title, '</td>';
-                    echo '<td>', $book_img, '</td>';
+                    echo '<td><img src="' . $book_img . '"></td>';
                     echo '<td>', $isbn, '</td>';
                     echo '<td>', $author_fname, '</td>';
                     echo '<td>', $author_lname, '</td>';
