@@ -24,10 +24,13 @@ if (isset($genre_id)) {
     exit();
 
     if ($stmt->execute()) {
-        echo "Yay";
+        echo '<div class="alert alert-success" role="alert">
+        Genre has been successfully deleted! </div>';
+        header('Refresh:25; URL=http://localhost:8090/forbidden-chapters/genres');
     } else {
-        echo "Nope";
+        echo '<div class="alert alert-danger" role="alert">Failed to delete record</div>';
     }
+
 
 }
 

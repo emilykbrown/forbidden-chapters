@@ -32,10 +32,10 @@ if(isset($_POST['login'])) {
               echo "<script>document.location='index.php'</script>";
             } 
         } else {
-            echo "Invalid username or password";
+            echo "<p class='error'>nvalid username or password</p>";
         }
     } else {
-        echo "Invalid username or password";
+        echo "<p class='error'>nvalid username or password</p>";
     }
 }
 ?>

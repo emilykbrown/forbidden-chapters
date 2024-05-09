@@ -2,7 +2,6 @@
 
 include 'variables.php'; 
 
-$validCheck = 0; 
 
 if(isset($_POST['add-genre'])) {
 
@@ -29,5 +28,6 @@ if(isset($_POST['add-genre'])) {
         $stmt->execute();
 
     }
+
 }
 ?>

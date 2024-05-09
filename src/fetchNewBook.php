@@ -1,14 +1,11 @@
-
 <?php
 
 include_once 'config/db.php';
-
 include_once 'variables.php';
-
 
 if (isset($_POST['add-book'])) {
     $validCheck = 0;
-    
+
     $title = htmlspecialchars($_POST['book-title']);
     $isbn = htmlspecialchars($_POST['isbn']);
     $author_id = htmlspecialchars($_POST['author_select']);
@@ -16,6 +13,7 @@ if (isset($_POST['add-book'])) {
     $blurb = htmlspecialchars($_POST['blurb']);
     $price = htmlspecialchars($_POST['price']);
     $qty = htmlspecialchars($_POST['qty']);
+
     // Validation checks
 
     if (empty($title)) {
@@ -34,27 +32,25 @@ if (isset($_POST['add-book'])) {
         $validCheck += 1;
     }
 
-    $author_select = $con->prepare("SELECT author_id from authors WHERE author_id=?");
+    // Validate Author ID
+    $author_select = $con->prepare("SELECT author_id FROM authors WHERE author_id = ?");
     $author_select->bindParam(1, $author_id);
     $author_select->execute();
 
     if ($author_select->rowCount() == 0) {
-        $author_selectError = "Enter author";
+        $author_selectError = "Select a valid author";
     } else {
-        $author_id = $author_select->fetch(PDO::FETCH_ASSOC);
-        $author_id = $author_id['author_id'];
         $validCheck += 1;
     }
 
-    $genre_select = $con->prepare("SELECT genre_id from genres WHERE genre_id=?");
+    // Validate Genre ID
+    $genre_select = $con->prepare("SELECT genre_id FROM genres WHERE genre_id = ?");
     $genre_select->bindParam(1, $genre_id);
     $genre_select->execute();
 
     if ($genre_select->rowCount() == 0) {
-        $genre_selectError = "Enter genre";
+        $genre_selectError = "Select a valid genre";
     } else {
-        $genre_id = $genre_select->fetch(PDO::FETCH_ASSOC);
-        $genre_id = $genre_id['genre_id'];
         $validCheck += 1;
     }
 
@@ -82,57 +78,55 @@ if (isset($_POST['add-book'])) {
         $validCheck += 1;
     }
 
-    if ($_FILES['book_img']['error'] !== UPLOAD_ERR_OK) {
-        $coverError = "Error uploading image";
-    } else {
+    if ($_FILES['book_img']['error'] == UPLOAD_ERR_OK) {
         $img_file = $_FILES['book_img']['name'];
         $ext = pathinfo($img_file, PATHINFO_EXTENSION);
         $file_name = create_unique_id() . '.' . $ext;
-        $tmp_name = $_FILES['book_img']['tmp_name'];
-        $file_size = $_FILES['book_img']['size'];
         $file_path = 'upload/' . $file_name;
+        $file_size = $_FILES['book_img']['size'];
 
         if (!preg_match($imgRegex, $file_path)) {
             $coverError = "Unsupported file type";
         } elseif ($file_size > 2000000) {
             $coverError = "Image too big";
         } else {
-            if (!move_uploaded_file($tmp_name, $file_path)) {
-                $coverError = "Error moving uploaded file";
-            } else {
-                $validCheck += 1;
-            }
-        }}
-
-         if ($validCheck == 8) {
-            $book_id = create_unique_id();
-            $query = "INSERT INTO `books` 
-            SET 
-                book_id=:book_id,
-                title=:title, 
-                isbn=:isbn, 
-                author_id=(SELECT author_id FROM `authors` WHERE author_id = :author_id), 
-                genre_id=(SELECT genre_id FROM `genres` WHERE genre_id = :genre_id), 
-                blurb=:blurb, 
-                price=:price, 
-                qty=:qty, 
-                book_img=:book_img";
-            
-            $stmt = $con->prepare($query);
-            $stmt->bindParam(':book_id', $book_id);
-            $stmt->bindParam(':title', $title);
-            $stmt->bindParam(':isbn', $isbn);
-            $stmt->bindParam(':author_id', $author_id);
-            $stmt->bindParam(':genre_id', $genre_id);
-            $stmt->bindParam(':blurb', $blurb);
-            $stmt->bindParam(':price', $price);
-            $stmt->bindParam(':qty', $qty);         
-            $stmt->bindParam(':book_img', $file_path);
-            $stmt->execute();
-
-        } else {
-            echo "Validation failed";
+            move_uploaded_file($_FILES['book_img']['tmp_name'], $file_path);
+            $validCheck += 1;
         }
+    } else {
+        $coverError = "Error uploading file";
     }
+
+    if ($validCheck == 8) {
+        $book_id = create_unique_id();
+        $query = "INSERT INTO `books` 
+            SET 
+                book_id = :book_id,
+                title = :title, 
+                isbn = :isbn, 
+                author_id = :author_id, 
+                genre_id = :genre_id, 
+                blurb = :blurb, 
+                price = :price, 
+                qty = :qty, 
+                book_img = :book_img";
+
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':book_id', $book_id);
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':isbn', $isbn);
+        $stmt->bindParam(':author_id', $author_id);
+        $stmt->bindParam(':genre_id', $genre_id);
+        $stmt->bindParam(':blurb', $blurb);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':qty', $qty);
+        $stmt->bindParam(':book_img', $file_path);
+        $stmt->execute();
+
+        // Redirect or display success message
+    } else {
+        echo "Validation failed";
+    }
+}
 
 ?>

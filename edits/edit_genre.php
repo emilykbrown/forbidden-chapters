@@ -3,7 +3,7 @@
 include_once '../config/db.php';
 
 // Include variables
-include '../src/variables.php'; 
+include '../src/variables.php';
 
 // Check if genre_id parameter is provided in the URL
 $genre_id = isset($_GET['id']) ? $_GET['id'] : die('No ID Found!');
@@ -28,7 +28,7 @@ if (isset($genre_id)) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['edit-genre'])) {
         // Check if genre is set in POST data
-        if(isset($_POST['genre'])){
+        if (isset($_POST['genre'])) {
             $validCheck = 0;
             $genre = htmlspecialchars($_POST['genre']);
 
@@ -52,16 +52,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Bind parameters
             $stmt->bindParam(':genre_id', $genre_id);
             $stmt->bindParam(':genre', $genre);
-            // Execute query
-            if ($stmt->execute()) {
-                echo 'Genre updated!';
+            $success = $stmt->execute();
+
+            if ($success) {
+                echo '<div class="alert alert-success" role="alert">
+        Genre has been successfully updated </div>';
+                header('Refresh:25; URL=http://localhost:8090/forbidden-chapters/genres.php');
             } else {
-                echo 'Failed to update!';
+                echo '<div class="alert alert-danger" role="alert">Failed to delete record</div>';
             }
+
         }
     }
 }
 ?>
+
+<head>
+    <?php
+    include '../src/header.php';
+    ?>
+</head>
 
 <body>
     <div class="container mt-3 mb-3 justify-content-center">
@@ -70,17 +80,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form action="" method="POST">
                     <div class="mb-3 mt-3">
                         <label for="genre">Genre</label>
-                        <input type="text" class="form-control" name="genre" id="genre" value="<?php echo $genre; ?>" placeholder="Genre">
+                        <input type="text" class="form-control" name="genre" id="genre" value="<?php echo $genre; ?>"
+                            placeholder="Genre">
                     </div>
                     <span class="error">
                         <?php echo isset($genreError) ? $genreError : ''; ?>
                     </span>
                     <div class="d-grid gap-4">
-                        <button type="submit" name="edit-genre" value="edit-genre" class="btn btn-success">Update Genre</button>
+                        <button type="submit" name="edit-genre" value="edit-genre" class="btn btn-success">Update
+                            Genre</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </body>
-a
