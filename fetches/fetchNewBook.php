@@ -5,7 +5,7 @@ include 'config/variables.php';
 
 if (isset($_POST['add-book'])) {
     $validCheck = 0;
-    $book_id = create_unique_id();
+    $book_id = uniqid();
 
     $title = $_POST['book-title'];
     $isbn = $_POST['isbn'];
@@ -81,7 +81,7 @@ if (isset($_POST['add-book'])) {
 
     $img_file = $_FILES['book_img']['name'];
     $ext = pathinfo($img_file, PATHINFO_EXTENSION);
-    $file_name = create_unique_id() . '.' . $ext;
+    $file_name = uniqid() . '.' . $ext;
     $tmp_name = $_FILES['book_img']['tmp_name'];
     $file_size = $_FILES['book_img']['size'];
     $file_path = 'upload/' . $file_name; 
