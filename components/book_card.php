@@ -12,7 +12,7 @@
                     <div class="card-body p-4">
                         <div class="text-center">
                             <!-- Product name-->
-                            <h5">Catching Fire</h5>
+                            <h5>Catching Fire</h5>
                             <p>Suzanne Collins</p>
                             <p>$7.95</p>
                         </div>
