@@ -11,5 +11,5 @@
     <script src="vendor/js/jquery-3.7.0.min.js"></script>
     <script src="vendor/js/datatables.js"></script>
     <scrip src="vendor/js/datatables.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>

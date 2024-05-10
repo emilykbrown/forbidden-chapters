@@ -74,8 +74,8 @@ if (isset($_POST['signup'])) {
   }
 
   if ($validCheck == 7) {
-    $user_id = create_unique_id();
-  
+    $user_id = uniqid();
+    
     // Hash password
     $options = ['cost' => 12];
     $hashpass = password_hash($upass, PASSWORD_BCRYPT, $options);
