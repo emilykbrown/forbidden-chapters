@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'bin/db.php';
+include 'config/db.php';
 if (isset($_COOKIE['user_id'])) {
     $user_id = $_COOKIE['user_id'];
 } else {
@@ -16,8 +16,6 @@ if (!empty($_SESSION['userlogin'])) {
     $urole = $_SESSION['urole'];
     if ($urole == "Admin") {
         
-        include_once 'fetches/fetchNewBook.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,17 +26,11 @@ if (!empty($_SESSION['userlogin'])) {
 
 <?php include 'components/adminNavbar.php'; ?>
 
-<div class="container mt-5">
-    <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#book_modal">Add Book</button>
 
-    <!-- The Modal -->
-    <div class="modal" id="book_modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <?php include 'add_book.php'; ?>
-            </div>
-        </div>
-    </div>
+<div class="container mt-5">
+
+<button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#book_modal">Add Book</button>
+
 
     <div class="card">
         <table id="inventory_table" class="table table-striped table-bordered">
@@ -85,7 +77,20 @@ if (!empty($_SESSION['userlogin'])) {
             </tbody>
         </table>
     </div>
+    </div>
+
+    
+    <!-- The Modal -->
+    <div class="modal" id="book_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <?php include 'modals/add_book.php'; ?>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 <script>
     $(document).ready(function () {

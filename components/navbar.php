@@ -15,14 +15,14 @@
       </div>
 </nav>
 
-<!-- The Modal -->
+<!-- Login Modal -->
 <div class="modal" id="login_modal">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <?php
 
-      include 'login.php';
+      include 'modals/login.php';
 
       ?>
 

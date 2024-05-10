@@ -17,7 +17,6 @@ if(!empty($_SESSION['userlogin'])) {
     $urole = $_SESSION['urole'];
     if ($urole == "Admin")
     {
-        include 'fetches/fetchNewBook.php';
 
 ?>
 

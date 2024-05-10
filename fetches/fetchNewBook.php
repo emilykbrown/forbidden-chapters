@@ -1,7 +1,7 @@
 <?php
 
-include_once '../bin/db.php';
-include_once '../bin/variables.php';
+include 'config/db.php';
+include 'config/variables.php';
 
 if (isset($_POST['add-book'])) {
     $validCheck = 0;

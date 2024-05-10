@@ -8,7 +8,7 @@ include 'fetches/fetchNewUser.php';
 
 <head>
   <?php
-  include ('src/header.php');
+  include 'components/header.php';
   ?>
 </head>
 
