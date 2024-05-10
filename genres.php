@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'config/db.php';
+include 'config/db.php'; 
 if (isset($_COOKIE['user_id'])) {
     $user_id = $_COOKIE['user_id'];
 } else {
@@ -16,7 +16,7 @@ if (!empty($_SESSION['userlogin'])) {
 
     $urole = $_SESSION['urole'];
     if ($urole == "Admin") {
-        include 'src/fetchNewBook.php';
+        include 'fetches/fetchNewGenre.php';
 
         ?>
 
@@ -25,13 +25,13 @@ if (!empty($_SESSION['userlogin'])) {
 
         <head>
             <?php
-            include 'src/header.php';
+            include 'components/header.php';
             ?>
         </head>
 
         <body>
             <?php
-            include 'src/adminNavbar.php';
+            include 'components/adminNavbar.php';
             ?>
 
             <div class="container mt-5">

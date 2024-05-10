@@ -2,7 +2,7 @@
 
 include 'config/db.php';
 
-include 'variables.php'; 
+include '.variables.php'; 
 
 $validCheck = 0;
 

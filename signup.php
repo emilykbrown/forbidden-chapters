@@ -1,6 +1,6 @@
 <?php
 
-include 'src/user_validation.php';
+include 'fetches/fetchNewUser.php';
 
 ?>
 <!DOCTYPE html>

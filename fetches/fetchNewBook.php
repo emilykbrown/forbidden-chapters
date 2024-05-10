@@ -1,18 +1,19 @@
 <?php
 
-include_once 'config/db.php';
-include_once 'variables.php';
+include_once '../bin/db.php';
+include_once '../bin/variables.php';
 
 if (isset($_POST['add-book'])) {
     $validCheck = 0;
+    $book_id = create_unique_id();
 
-    $title = htmlspecialchars($_POST['book-title']);
-    $isbn = htmlspecialchars($_POST['isbn']);
-    $author_id = htmlspecialchars($_POST['author_select']);
-    $genre_id = htmlspecialchars($_POST['genre_select']);
-    $blurb = htmlspecialchars($_POST['blurb']);
-    $price = htmlspecialchars($_POST['price']);
-    $qty = htmlspecialchars($_POST['qty']);
+    $title = $_POST['book-title'];
+    $isbn = $_POST['isbn'];
+    $author_id = $_POST['author_select'];
+    $genre_id = $_POST['genre_select'];
+    $blurb = $_POST['blurb'];
+    $price = $_POST['price'];
+    $qty = $_POST['qty'];
 
     // Validation checks
 
@@ -100,9 +101,8 @@ if (isset($_POST['add-book'])) {
     
     
     if ($validCheck == 8) {
-        $book_id = create_unique_id();
         $query = "INSERT INTO `books` 
-            SET 
+            SET
                 book_id = :book_id,
                 title = :title, 
                 isbn = :isbn, 

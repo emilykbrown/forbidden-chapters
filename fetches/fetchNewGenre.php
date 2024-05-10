@@ -1,6 +1,7 @@
 <?php
 
-include 'variables.php'; 
+include 'config/db.php'; 
+include 'config/variables.php'; 
 
 
 if(isset($_POST['add-genre'])) {
