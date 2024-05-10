@@ -1,6 +1,6 @@
 <?php
 
-include 'src/fetchNewGenre.php';
+include 'fetches/fetchNewGenre.php';
 
 ?>
 

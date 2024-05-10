@@ -18,7 +18,7 @@ if (isset($_POST['add-book'])) {
 
     if (empty($title)) {
         $titleError = "Enter title";
-    } elseif (!preg_match($nameRegex, $title)) {
+    } elseif (!preg_match($textRegex, $title)) {
         $titleError = "Invalid title name";
     } else {
         $validCheck += 1;
@@ -78,25 +78,27 @@ if (isset($_POST['add-book'])) {
         $validCheck += 1;
     }
 
-    if ($_FILES['book_img']['error'] == UPLOAD_ERR_OK) {
-        $img_file = $_FILES['book_img']['name'];
-        $ext = pathinfo($img_file, PATHINFO_EXTENSION);
-        $file_name = create_unique_id() . '.' . $ext;
-        $file_path = 'upload/' . $file_name;
-        $file_size = $_FILES['book_img']['size'];
+    $img_file = $_FILES['book_img']['name'];
+    $ext = pathinfo($img_file, PATHINFO_EXTENSION);
+    $file_name = create_unique_id() . '.' . $ext;
+    $tmp_name = $_FILES['book_img']['tmp_name'];
+    $file_size = $_FILES['book_img']['size'];
+    $file_path = 'upload/' . $file_name; 
 
-        if (!preg_match($imgRegex, $file_path)) {
-            $coverError = "Unsupported file type";
-        } elseif ($file_size > 2000000) {
-            $coverError = "Image too big";
-        } else {
-            move_uploaded_file($_FILES['book_img']['tmp_name'], $file_path);
-            $validCheck += 1;
-        }
+    // Above is working
+
+    if (empty($_FILES['book_img'])) {
+        $coverError = "Enter book cover";
+    } elseif (!preg_match($imgRegex, $file_path)) {
+        $coverError = "Unsupported file type";
+    } elseif ($file_size > 2000000) {
+        $coverError = "Image too big";
     } else {
-        $coverError = "Error uploading file";
+        $validCheck += 1;
     }
 
+    
+    
     if ($validCheck == 8) {
         $book_id = create_unique_id();
         $query = "INSERT INTO `books` 
@@ -104,8 +106,8 @@ if (isset($_POST['add-book'])) {
                 book_id = :book_id,
                 title = :title, 
                 isbn = :isbn, 
-                author_id = :author_id, 
-                genre_id = :genre_id, 
+                author_id=(SELECT author_id FROM `authors` WHERE author_id = :author_id), 
+                genre_id=(SELECT genre_id FROM `genres` WHERE genre_id = :genre_id), 
                 blurb = :blurb, 
                 price = :price, 
                 qty = :qty, 
@@ -121,7 +123,10 @@ if (isset($_POST['add-book'])) {
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':qty', $qty);
         $stmt->bindParam(':book_img', $file_path);
-        $stmt->execute();
+        
+        if (!$stmt->execute()) {
+            die('Error executing query: ' . $stmt->errorInfo()[2]);
+        }
 
         // Redirect or display success message
     } else {

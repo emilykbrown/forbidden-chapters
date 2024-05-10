@@ -17,7 +17,7 @@ if(!empty($_SESSION['userlogin'])) {
     $urole = $_SESSION['urole'];
     if ($urole == "Admin")
     {
-        include 'src/fetchNewBook.php';
+        include 'fetches/fetchNewBook.php';
 
 ?>
 
@@ -25,12 +25,12 @@ if(!empty($_SESSION['userlogin'])) {
 <html lang="en">
 <head> 
 <?php
-    include 'src/header.php';
+    include 'components/header.php';
 ?>    
 </head>
 <body>
 <?php
-  include 'src/adminNavbar.php';
+    include 'components/adminNavbar.php';
 ?>
 
 <div class="container mt-5">

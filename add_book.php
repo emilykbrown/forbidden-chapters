@@ -96,7 +96,7 @@ include 'src/fetchNewBook.php';
                         <input type="file" class="form-control" name="book_img" id="book_img">
                     </div>
                     <span class="error">
-                        <?php echo $coverError; ?>
+                        <?php echo $imgError; ?>
                     </span>
                     <div class="mb-3 mt-3">
 

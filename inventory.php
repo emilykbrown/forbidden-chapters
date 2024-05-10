@@ -16,17 +16,17 @@ if (!empty($_SESSION['userlogin'])) {
     $urole = $_SESSION['urole'];
     if ($urole == "Admin") {
         
-        include_once'src/fetchNewBook.php';
+        include_once 'fetches/fetchNewBook.php';
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include 'src/header.php'; ?>
+    <?php include 'components/header.php'; ?>
 </head>
 <body>
 
-<?php include 'src/adminNavbar.php'; ?>
+<?php include 'components/adminNavbar.php'; ?>
 
 <div class="container mt-5">
     <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#book_modal">Add Book</button>
