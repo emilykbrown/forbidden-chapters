@@ -7,13 +7,13 @@ if (isset($_POST['add-book'])) {
     $validCheck = 0;
     $book_id = uniqid();
 
-    $title = $_POST['book-title'];
-    $isbn = $_POST['isbn'];
-    $author_id = $_POST['author_select'];
-    $genre_id = $_POST['genre_select'];
-    $blurb = $_POST['blurb'];
-    $price = $_POST['price'];
-    $qty = $_POST['qty'];
+    $title = htmlspecialchars($_POST['book-title']);
+    $isbn = htmlspecialchars($_POST['isbn']);
+    $author_id = htmlspecialchars($_POST['author_select']);
+    $genre_id = htmlspecialchars($_POST['genre_select']);
+    $blurb = htmlspecialchars($_POST['blurb']);
+    $price = htmlspecialchars($_POST['price']);
+    $qty = htmlspecialchars($_POST['qty']);
 
     // Validation checks
 
@@ -95,7 +95,11 @@ if (isset($_POST['add-book'])) {
     } elseif ($file_size > 2000000) {
         $coverError = "Image too big";
     } else {
-        $validCheck += 1;
+        if (move_uploaded_file($tmp_name, $file_path)) {
+            $validCheck += 1; // Incrementing validCheck only if file uploaded successfully
+        } else {
+            $coverError = "Failed to upload image";
+        }
     }
 
     
@@ -123,10 +127,11 @@ if (isset($_POST['add-book'])) {
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':qty', $qty);
         $stmt->bindParam(':book_img', $file_path);
+        $stmt->execute();
         
-        if (!$stmt->execute()) {
-            die('Error executing query: ' . $stmt->errorInfo()[2]);
-        }
+        // if (!$stmt->execute()) {
+        //     die('Error executing query: ' . $stmt->errorInfo()[2]);
+        // }
 
         // Redirect or display success message
     } else {

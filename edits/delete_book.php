@@ -11,7 +11,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         $query = "DELETE FROM books WHERE book_id=?";
         $stmt = $con->prepare($query);
         $stmt->bindParam(1, $book_id);
-        
+        $success = $stmt->execute();
+
+        // Check if the query was successful
+        if ($success) {
+            echo json_encode(['success' => true]);
+            exit(); // Stop script execution
+        } else {
+            throw new Exception("Failed to delete record.");
+        }
     } catch (Exception $e) {
         // Handle exceptions (e.g., database errors)
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);

@@ -6,7 +6,7 @@
                     <div class="img-container">
                         <img class="book-img" src="https://dummyimage.com/180x225/dee2e6/6c757d.jpg" alt="..." />
                         <div class="btn-overlay">
-                            <button class="btn btn-outline-dark mt-auto">Details</button>
+                            <button class="btn btn-outline-dark mt-auto">Blurb</button>
                         </div>
                     </div>
                     <div class="card-body p-4">

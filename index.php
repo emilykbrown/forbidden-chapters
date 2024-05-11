@@ -10,13 +10,9 @@
   ?>
     
   </body>
-  </html>
+  </html> 
+ 
   
-  
-  <?php
-    include 'components/book_card.php';
-  ?>
-    
     
   </body>
   </html>

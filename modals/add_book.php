@@ -2,6 +2,12 @@
 include 'fetches/fetchNewBook.php';
 ?>
 
+<style>
+    .error{
+        color: #ff0000;
+    }
+</style>
+
 <body>
 
     <div class="container mt-3 mb-3 d-flex justify-content-center">

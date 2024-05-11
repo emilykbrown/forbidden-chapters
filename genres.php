@@ -24,8 +24,6 @@ if (empty($_SESSION['userlogin'])) {
 if (!empty($_SESSION['userlogin'])) {
     $urole = $_SESSION['urole'];
     if ($urole == "Admin") {
-        // Include fetchNewGenre.php file
-        include 'fetches/fetchNewGenre.php';
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +40,7 @@ if (!empty($_SESSION['userlogin'])) {
         <div class="modal" id="genre_modal">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <?php include 'add_genre.php'; ?>
+                    <?php include 'modals/add_genre.php'; ?>
                 </div>
             </div>
         </div>
@@ -71,7 +69,7 @@ if (!empty($_SESSION['userlogin'])) {
                         echo '<td>', $genre_book_count, '</td>';
                         echo '<td>';
                         echo "<a href='edits/edit_genre.php?id={$genre_id}' name='edit-genre' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a>&nbsp;&nbsp;";
-                        echo "<button onclick='confirmDeleteGenre($genre_id)' name='delete-genre' class='btn btn-danger btn-sm'><i class='fa-solid fa-x'></i></button>";
+                        echo "<button onclick='confirmGenreDelete()' class='btn btn-sm btn-danger deleteBtn' id='deleteBtn'><i class='fa-solid fa-x'></i></button>";
                         echo '</td>';
                         echo '</tr>';
                     }
@@ -85,15 +83,17 @@ $(document).ready(function() {
     $('#genre-table').DataTable();
 });
 
-function confirmDeleteGenre(genre_id) {
-    var result = confirm("Are you sure you want to delete this record?");
+
+function confirmGenreDelete() {
+    var result = confirm("Are you sure you want to delete this genre?");
     if (result) {
         // Redirect to delete.php with the ID parameter
-        window.location.href = 'edits/delete_genre.php?id=' + genre_id;
+        window.location.href = 'edits/delete_genre.php?id=<?php echo $genre_id; ?>';
     } else {
         // Do nothing
     }
-} 
+}
+
 </script>
 </body>
 </html>

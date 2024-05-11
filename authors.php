@@ -75,7 +75,7 @@ if (!empty($_SESSION['userlogin'])) {
                     echo '<td>', $author_book_count, '</td>';
                     echo '<td>';
                     echo "<a href='edits/edit_author.php?id={$author_id}' name='edit-author' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a>&nbsp;&nbsp;";
-                    echo "<button onclick='confirmDeleteAuthor($author_id)' name='delete-author' class='btn btn-danger btn-sm'><i class='fa-solid fa-x'></i></button>";
+                    echo "<button onclick='confirmAuthorDelete()' class='btn btn-sm btn-danger deleteBtn' id='deleteBtn'><i class='fa-solid fa-x'></i></button>";
                     echo '</td>';
                     echo '</tr>';
                 }
@@ -90,14 +90,16 @@ $(document).ready(function() {
     $('#author_table').DataTable();
 });
 
-function confirmDeleteAuthor(author_id) {
-    var result = confirm("Are you sure you want to delete this record?");
+function confirmAuthorDelete() {
+    var result = confirm("Are you sure you want to delete this author?");
     if (result) {
-        window.location.href = 'edits/delete_author.php?id=' + author_id;
+        // Redirect to delete.php with the ID parameter
+        window.location.href = 'edits/delete_author.php?id=<?php echo $author_id; ?>';
     } else {
         // Do nothing
     }
 }
+
 </script>
 </body>
 </html>
