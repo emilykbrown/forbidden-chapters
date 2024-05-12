@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/css/datatables.css">
     <link rel="stylesheet" href="vendor/css/datatables.min.css">
-    <link rel="stylesheet" href="app/css/main.css">
+    <link rel="stylesheet" href="app/main.css">
     <script src="https://kit.fontawesome.com/8f22622c15.js" crossorigin="anonymous"></script>
     <script src="vendor/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/js/jquery-3.7.0.min.js"></script>
