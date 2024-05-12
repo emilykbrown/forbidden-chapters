@@ -7,7 +7,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav">
             
-        </div>
+        </div>2
         <div class="d-flex ms-auto">
           <a href="logout.php" class="btn btn-primary btn-sm">Logout</a>
     </div>
