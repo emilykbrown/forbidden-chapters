@@ -5,16 +5,20 @@
   ?>
 </head>
 <body>
+  
   <?php
     include 'components/navbar.php';
   ?>
-    
-  </body>
-  </html> 
+    <div class="container mt-5">
 
-  <?php
+      <!-- Book cards -->
+      <div class="row">
+        
+        <?php
     include 'components/book_card.php';
-  ?>
+    ?>
+  <div class="row">
+    </div>
     
   </body>
   </html>

@@ -1,24 +1,23 @@
 
 
-/* ==== Book Image ==== */
-
 .img-container {
     position: relative;
-    width: 100%;
-    height: auto; /* Adjusts height according to the image */
     overflow: hidden;
 }
 
 .img-container img {
     display: block;
-    margin: 0 auto;
-    max-width: 100%;
-    height: auto;
+}
+
+.img-container img.book-cover {
+    width: auto !important; /* Override any conflicting width styles */
+    max-width: 100%; /* Ensure the image doesn't exceed its container width */
+    height: auto; /* Allow the height to adjust proportionally */
 }
 
 
 .overlay {
-    position: absolute;
+	position: absolute;
 	top: 0;
 	bottom: 0;
 	left: 0;
@@ -29,10 +28,10 @@
 }
 
 .img-container:hover .img {
-    transform: scale(1.1);
+	transform: scale(1.1);
 }
 .img-container:hover .overlay{
-    opacity: 1;
+	opacity: 1;
 }
 
 .blurb-btn {
@@ -40,52 +39,4 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-/* ==== Book Grid ==== */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-gap: 20px;
-    padding: 0 15px;
-}
-
-.card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.card img {
-    width: 100%;
-    height: auto;
-}
-
-.card-body {
-    padding: 20px;
-}
-/* 
-.card-footer {
-    padding: 10px 20px;
-    background-color: #f4f4f4;
-    border-top: 1px solid #ddd;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-
-.card-footer a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-} */
-
-.modal-body {
-    padding: 20px;
-}
-
-@media screen and (max-width: 768px) {
-    .grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
 }
