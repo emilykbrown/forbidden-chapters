@@ -1,6 +1,6 @@
 
 <style>
-    @import url(app/book-card.css);
+    @import url(app/css/book-card.css);
 </style>
 
 <?php
@@ -82,3 +82,4 @@ if ($stmt->rowCount() > 0) {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src=""></script>

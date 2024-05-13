@@ -2,10 +2,7 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<?php include 'components/link.php'; ?>
-	<title>My Cart</title>
+<?php include 'components/header.php'; ?>
 </head>
 
 <body>
@@ -29,7 +26,7 @@
 	if (isset($_POST['update_cart'])) {
 		$cart_id = $_POST['cart_id'];
 		$qty = $_POST['qty'];
-		$update_qty = $con->prepare("UPDATE `cart` SET qty=? WHERE id=?");
+		$update_qty = $con->prepare("UPDATE `cart` SET qty=? WHERE cart_id=?");
 		$update_qty->execute([$qty, $cart_id]);
 
 		$success_msg[] = "Cart quantity updated!";
@@ -38,16 +35,16 @@
 	// Delete item from cart
 	if (isset($_POST['delete-item'])) {
 		$cart_id = $_POST['cart_id'];
-		$delete_cart_id = $con->prepare("DELETE FROM `cart` WHERE id=?");
+		$delete_cart_id = $con->prepare("DELETE FROM `cart` WHERE cart_id=?");
 		$delete_cart_id->execute([$cart_id]);
-		$success_msg[] = "Cart item deleted!";
+		echo "Cart item deleted!";
 	}
 
 	// Empty cart
 	if (isset($_POST['empty_cart'])) {
 		$delete_cart_id = $con->prepare("DELETE FROM `cart` WHERE user_id=?");
 		$delete_cart_id->execute([$user_id]);
-		$success_msg[] = "Cart emptied!";
+		echo "Cart emptied!";
 	}
 	?>
 
@@ -58,7 +55,7 @@
 			</div>
 
 			<div class="card-body">
-				<table class="table table-hover table-condensed">
+				<table class="table table-hover table-condensed" id="cart_table">
 					<thead>
 						<tr>
 							<th>Book</th>
@@ -82,11 +79,11 @@
 							$grand_total += $subtotal;
 						?>
 							<tr>
-								<td><img src="<?php echo $fetch_song['album_cover']; ?>" width="100" height="100"></td>
+								<td><img src="<?php echo $fetch_song['book_title']; ?>" width="100" height="100"></td>
 								<td><?php echo $fetch_cart['price']; ?></td>
 								<td>
 									<form action="" method="POST">
-										<input type="hidden" name="cart_id" value="<?php echo $fetch_cart['id']; ?>">
+										<input type="hidden" name="cart_id" value="<?php echo $fetch_cart['cart_id']; ?>">
 										<input type="number" name="qty" required min="1" value="<?php echo $fetch_cart['qty']; ?>" max="99" class="qty w-25 form-control float-end text-end border border-primary rounded-pill">
 										<button type="submit" class="btn btn-outline-primary rounded-pill" name="update_cart">Update</button>
 									</form>
@@ -118,8 +115,14 @@
 	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-	<?php include 'components/alert.php'; ?>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>1
+	<script>
+
+	$(document).ready(function() {
+	    $('#cart_table').DataTable();
+	});
+
+	</script>
 </body>
 
 </html>
