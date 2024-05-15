@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 if(isset($_POST['login'])) {
     include 'config/db.php';
@@ -29,7 +31,7 @@ if(isset($_POST['login'])) {
             if($urole == 'Admin' ) {
               echo "<script>document.location='inventory.php'</script>";
             } if ($urole == 'User') {
-              echo "<script>document.location='index.php'</script>";
+              echo "<script>document.location='userIndex.php'</script>";
             } 
         } else {
             echo "<p class='error'>nvalid username or password</p>";

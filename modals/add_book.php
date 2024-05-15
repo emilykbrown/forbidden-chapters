@@ -1,5 +1,7 @@
 <?php
 include 'fetches/fetchNewBook.php';
+include 'fetches/fetchCart.php';
+
 ?>
 
 <style>

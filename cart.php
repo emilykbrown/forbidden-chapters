@@ -1,3 +1,25 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+include 'config/db.php';
+if (isset($_COOKIE['user_id'])) {
+    $user_id = $_COOKIE['user_id'];
+} else {
+    setcookie('user_id', uniqid(), time() + 60 * 60 * 24 * 30);
+}
+
+if (empty($_SESSION['userlogin'])) {
+    echo "<script>document.location='logout.php'</script>";
+}
+
+if (!empty($_SESSION['userlogin'])) {
+
+    $urole = $_SESSION['urole'];
+    if ($urole == "User"){ 
+    
+?>
 <!DOCTYPE html>
 <html>
 
@@ -7,46 +29,10 @@
 
 <body>
 	<!-- Navbar -->
-	<?php include 'components/navbar.php'; ?>
+	<?php include 'components/userNavbar.php'; ?>
 	<!-- End navbar -->
 
-	<?php
-	// Database connection
-	require_once 'config/db.php'; 
-
-	// Handle cookies
-	if (isset($_COOKIE['user_id'])) {
-		$user_id = $_COOKIE['user_id'];
-	} else {
-		$user_id = uniqid();
-		setcookie('user_id', $user_id, time() + 60 * 60 * 24 * 30); // Set cookie for 30 days
-	}
-
-	// Update cart
-	if (isset($_POST['update_cart'])) {
-		$cart_id = $_POST['cart_id'];
-		$qty = $_POST['qty'];
-		$update_qty = $con->prepare("UPDATE `cart` SET qty=? WHERE cart_id=?");
-		$update_qty->execute([$qty, $cart_id]);
-
-		$success_msg[] = "Cart quantity updated!";
-	}
-
-	// Delete item from cart
-	if (isset($_POST['delete-item'])) {
-		$cart_id = $_POST['cart_id'];
-		$delete_cart_id = $con->prepare("DELETE FROM `cart` WHERE cart_id=?");
-		$delete_cart_id->execute([$cart_id]);
-		echo "Cart item deleted!";
-	}
-
-	// Empty cart
-	if (isset($_POST['empty_cart'])) {
-		$delete_cart_id = $con->prepare("DELETE FROM `cart` WHERE user_id=?");
-		$delete_cart_id->execute([$user_id]);
-		echo "Cart emptied!";
-	}
-	?>
+	
 
 	<div class="container mt-3">
 		<div class="card">
@@ -62,7 +48,7 @@
 							<th>Price</th>
 							<th>Quantity</th>
 							<th>Subtotal</th>
-							<th>Action</th>
+							<th>Remove</th>
 						</tr>
 					</thead>
 
@@ -79,20 +65,20 @@
 							$grand_total += $subtotal;
 						?>
 							<tr>
-								<td><img src="<?php echo $fetch_song['book_title']; ?>" width="100" height="100"></td>
+								<td><img src="<?php echo $fetch_book['book_img']; ?>" width="100" height="100"></td>
 								<td><?php echo $fetch_cart['price']; ?></td>
 								<td>
 									<form action="" method="POST">
 										<input type="hidden" name="cart_id" value="<?php echo $fetch_cart['cart_id']; ?>">
-										<input type="number" name="qty" required min="1" value="<?php echo $fetch_cart['qty']; ?>" max="99" class="qty w-25 form-control float-end text-end border border-primary rounded-pill">
-										<button type="submit" class="btn btn-outline-primary rounded-pill" name="update_cart">Update</button>
+										<input type="number" name="qty" required min="1" value="<?php echo $fetch_cart['qty']; ?>" max="99" class="qty w-25 form-control float-end text-end border border-success">
+										<button type="submit" class="btn btn-success btn-sm" name="update_cart"><i class="fa-solid fa-pen-to-square"></i></button>
 									</form>
 								</td>
 								<td><?php echo $subtotal; ?></td>
 								<td>
 									<form action="" method="POST">
-										<input type="hidden" name="cart_id" value="<?php echo $fetch_cart['id']; ?>">
-										<input type="submit" name="delete-item" value="Delete" class="btn btn-outline-danger rounded-pill">
+										<input type="hidden" name="cart_id" value="<?php echo $fetch_cart['cart_id']; ?>">
+										<button type="submit" name="delete_item" value="Delete" class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i></button>
 									</form>
 								</td>
 							</tr>
@@ -103,13 +89,13 @@
 				</table>
 
 				<form action="" method="POST">
-					<input type="submit" value="Empty cart" name="empty_cart" class="btn btn-outline-danger">
+					<input type="submit" value="Empty cart" name="empty_cart" class="btn btn-danger">
 				</form>
 			</div>
 
 			<div class="float-end">
-				<a href="index.php" class="btn btn-outline-primary">Back to shopping</a>
-				<a href="checkout.php" class="btn btn-outline-success">Checkout</a>
+				<a href="userIndex.php" class="btn btn-primary">Back to shopping</a>
+				<a href="checkout.php" class="btn btn-success">Checkout</a>
 			</div>
 		</div>
 	</div>
@@ -126,3 +112,7 @@
 </body>
 
 </html>
+<?php
+	}
+}
+?>

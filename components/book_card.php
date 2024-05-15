@@ -6,6 +6,8 @@
 <?php
 include 'config/db.php';
 
+include 'fetches/fetchCart.php';
+
 if (isset($_COOKIE['user_id'])) {
     $user_id = $_COOKIE['user_id'];
 } else {
@@ -37,25 +39,27 @@ if ($stmt->rowCount() > 0) {
                         <!-- Product name-->
                         <h5><?php echo $row['title']; ?></h5>
                         <p><?php echo $row['author_fname'] . ' ' . $row['author_lname']; ?> | <?php echo $row['genre']; ?></p>
-                        <form action="#" method="POST">
+                        <form method="POST">
                             <p>$<?php echo $row['price']; ?></p>
                     </div>
                 </div>
-                <input type="hidden" name="vook_id" value="<?php echo $row['book_id']; ?>">
 
-                <!-- Product actions-->
-                <div class="d-grid gap-2 mb-5 d-md-block text-center">
-                    <a class="btn btn-dark" href="#">Buy Now</a>
-                </div>
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="row">
-                        <input type="number" name="qty" required min="1" value="1" max="99" maxlength="2"
-                            class="col form-control text-center border border-dark">
-                        <div class="col text-center"><a class="btn btn-dark mt-auto" href="#">
-                                <xi class="fa fa-solid fa-cart-shopping"></xi>
-                            </a></div>
+                    <input type="hidden" name="book_id" value="<?php echo $row['book_id']; ?>">
+                    
+                    <!-- Product actions-->
+                    <div class="d-grid gap-2 mb-5 d-md-block text-center">
+                        <button type="submit" class="btn btn-dark">Buy Now</button>
                     </div>
-                </div>
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="row">
+                            <input type="number" name="qty" required min="1" value="1" max="99" maxlength="2"
+                            class="col form-control text-center border border-dark">
+                            <div class="col text-center"><button type="submit" class="btn btn-dark mt-auto" name="add_to_cart">
+                                <i class="fa fa-solid fa-cart-shopping"></i>
+                            </button></div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
 
