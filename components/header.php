@@ -1,6 +1,6 @@
 <head>
     <meta charset="utf-8">
-    <title>Forgotten Chapters</title>
+    <title>Forbidden Chapters</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/css/datatables.css">
