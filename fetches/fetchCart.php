@@ -62,12 +62,11 @@ if (isset($_POST['update_cart'])) {
     $qty = $_POST['qty'];
     $update_qty = $con->prepare("UPDATE `cart` SET qty=? WHERE cart_id=?");
     $update_qty->execute([$qty, $cart_id]);
-
     echo "Cart quantity updated!";
 }
 
 // Delete item from cart
-if (isset($_POST['delete-item'])) {
+if (isset($_POST['delete_item'])) {
     $cart_id = $_POST['cart_id'];
     $delete_cart_id = $con->prepare("DELETE FROM `cart` WHERE cart_id=?");
     $delete_cart_id->execute([$cart_id]);

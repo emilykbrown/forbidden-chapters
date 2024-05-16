@@ -18,7 +18,8 @@ if (!empty($_SESSION['userlogin'])) {
 
     $urole = $_SESSION['urole'];
     if ($urole == "User"){ 
-    
+		
+		include "fetches/fetchCart.php";
 ?>
 <!DOCTYPE html>
 <html>
