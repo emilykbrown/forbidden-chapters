@@ -15,7 +15,7 @@ include 'fetches/fetchCart.php';
     <div class="container mt-3 mb-3 d-flex justify-content-center">
         <div class="card">
             <div class="card-body">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" meNthod="post" enctype="multipart/form-data">
                     <div class="mb-3 mt-3">
                         <label for="book-title">Book Title</label>
                         <input type="text" class="form-control" name="book-title" id="book-title"

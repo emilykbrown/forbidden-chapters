@@ -44,7 +44,6 @@ if (!empty($_SESSION['userlogin'])) {
                 </div>
             </div>
         </div>
-        <div class="card">
             <table id="genre-table" class="table table-striped table-bordered">
                 <thead>
                     <tr>

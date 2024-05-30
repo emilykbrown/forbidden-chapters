@@ -3,7 +3,6 @@
 include 'config/db.php'; 
 include 'config/variables.php'; 
 
-
 $validCheck = 0;
 
 if(isset($_POST['add-genre'])) {
